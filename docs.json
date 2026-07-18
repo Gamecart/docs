@@ -60,7 +60,8 @@
             "group": "Server delivery",
             "pages": [
               "tutorials/server-delivery/overview",
-              "tutorials/server-delivery/connect-server"
+              "tutorials/server-delivery/connect-server",
+              "tutorials/server-delivery/minecraft"
             ]
           }
         ]
