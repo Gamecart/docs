@@ -1,0 +1,63 @@
+---
+title: "Install the FiveM executor"
+description: "Connect a FiveM server resource to Gamecart command delivery"
+---
+
+Use this tutorial after you [connect a server](/tutorials/server-delivery/connect-server) with the `SCRIPT` method.
+
+## Before you begin
+
+The executor is a server-only FiveM resource. It requires Cfx Node 22 and has no client scripts or NUI.
+
+Download coming soon. You must already have the resource before continuing.
+
+## Install and configure the executor
+
+1. Place the resource at `resources/[gamecart]/gamecart`.
+2. Keep the resource folder named `gamecart` when using the documented ACE principal.
+3. Open `config.js` and set your server token.
+4. Add the ACE rules and `ensure gamecart` to `server.cfg`, then restart the resource.
+
+```js
+module.exports = Object.freeze({
+  serverToken: "paste-token-here",
+  apiUrl: "https://api.gamecart.gg",
+  pollIntervalSeconds: 5,
+  debug: false,
+})
+```
+
+Copy the server token from **Integrations > Servers**. Keep it secret.
+
+Set `pollIntervalSeconds` from `2` through `300`. Use HTTPS for `apiUrl` outside a loopback development endpoint. When `debug=true`, the executor writes only sanitized operational state and status logs; it does not log the token, commands, player nicknames, HTTP bodies, buyer, or order data.
+
+## Grant command permissions
+
+Fulfillment uses `ExecuteCommand` under the `resource.gamecart` principal. Grant administrators access to the local commands and start the resource:
+
+```cfg
+add_ace group.admin command.gamecart allow
+ensure gamecart
+```
+
+Prefer explicit command grants whenever the target resource exposes command-specific ACE objects.
+
+<Warning>
+  The broad grant below permits `resource.gamecart` to execute every registered server command. Use it only when you understand that risk.
+
+  ```cfg
+  add_ace resource.gamecart command allow
+  ```
+</Warning>
+
+## Operate the executor
+
+Run `gamecart status` to view the connector version, state, time since the last pull, current backoff, and pending callback queue ID. Run `gamecart reload` to validate and safely apply `config.js`; it resumes a pending callback without dispatching its command again.
+
+Use exactly one installation for each Gamecart server token. Network errors and `408`, `429`, and `5xx` responses use capped `5`/`10`/`30`/`60` second backoff before polling again. Invalid credentials, redirects, and other non-retryable HTTP errors stop polling until you reload the configuration or restart the resource.
+
+Stopping the resource invalidates unfinished presence, pull, dispatch, and callback continuations so stale asynchronous work cannot restart polling or change connector state.
+
+<Warning>
+  If a command is dispatched but its callback is not confirmed, manually resending it can duplicate fulfillment. Stop the original executor and confirm the outcome in the Gamecart dashboard before resending.
+</Warning>
