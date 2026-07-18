@@ -1,0 +1,57 @@
+---
+title: "Test and troubleshoot server delivery"
+description: "Run a controlled delivery test and resolve common command-delivery issues"
+---
+
+Use a controlled test before you rely on server delivery for live purchases. Test with a dedicated product and a safe target account so you can verify the result without affecting a player’s normal inventory or progress.
+
+## Run a controlled delivery test
+
+<Steps>
+  <Step title="Confirm the delivery connection">
+    For a plugin or script executor, run `gamecart status` from the server or proxy console. For RCON, confirm that the server integration’s RCON settings are correct.
+  </Step>
+
+  <Step title="Prepare test data">
+    Create a dedicated test product and use a dedicated account identifier that you can inspect on the target server.
+  </Step>
+
+  <Step title="Place the test order">
+    Use a safe payment or test path that is available to your store. Complete the controlled order through your storefront.
+  </Step>
+
+  <Step title="Follow the command">
+    In the dashboard, open **Commands** and follow the command’s visible status.
+  </Step>
+
+  <Step title="Verify the result">
+    Confirm the expected effect on the target server. A console accepting a dispatch does not by itself prove that the command had the intended effect.
+  </Step>
+</Steps>
+
+## Understand command states
+
+| Status | What it means |
+| --- | --- |
+| `SCHEDULED` | The command is queued and waiting for its delivery path to handle it. |
+| `PROCESSING` | A delivery path is currently handling the command. Wait for it to reach a final state before taking manual action. |
+| `EXECUTED` | Gamecart recorded the delivery as completed. Verify the expected effect on the server when it matters. |
+| `FAILED` | The delivery path could not complete the command. Review the safe status or error shown by Gamecart, then check the target command. |
+| `UNCERTAIN` | An internal RCON delivery could not determine whether the command took effect. Check the server and use operator judgment before you resend it. |
+
+## Troubleshoot common symptoms
+
+| Symptom | First check |
+| --- | --- |
+| Executor does not poll | Check the token, HTTPS API URL, and runtime logs. Then run `gamecart reload`. |
+| Executor enters backoff | Check network reachability and any `408`, `429`, or `5xx` provider or backend responses. |
+| Polling stops after a client error | Check credentials and configuration. Reload or restart after you correct them. |
+| Command remains processing | Confirm the executor and callback path before you take manual action. |
+| Command failed | Read the safe status or error shown by Gamecart and verify the target command manually. |
+| RCON is uncertain | Check the server for the command’s effect before you resend it. |
+
+<Warning>
+  Resend creates a new delivery attempt and may duplicate a command that already ran. Stop any duplicate executor installations, inspect the server, and confirm the dashboard warning before you proceed.
+</Warning>
+
+If the issue continues after these checks, keep the visible command status and the safe runtime information available when you contact support. Do not share tokens, credentials, or buyer data.
