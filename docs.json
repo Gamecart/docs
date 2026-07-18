@@ -64,7 +64,8 @@
               "tutorials/server-delivery/minecraft",
               "tutorials/server-delivery/hytale",
               "tutorials/server-delivery/fivem",
-              "tutorials/server-delivery/minecraft-rcon"
+              "tutorials/server-delivery/minecraft-rcon",
+              "tutorials/server-delivery/configure-commands"
             ]
           }
         ]
