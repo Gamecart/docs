@@ -1,0 +1,65 @@
+---
+title: "Set up a custom domain"
+description: "Connect your own domain to a Gamecart storefront"
+---
+
+Connect a domain you control to your Gamecart storefront. Gamecart manages routing and TLS after your DNS records are valid.
+
+## Before you begin
+
+You need:
+
+- A Gamecart plan that includes custom domains.
+- Access to your store's **Settings**.
+- Control of the domain's DNS records.
+- A hostname to use for your storefront, such as `store.example.com`.
+
+## Add your domain in the dashboard
+
+1. In the dashboard, open **Settings > Domain**.
+2. Enable **Custom domain**.
+3. Enter your hostname, such as `store.example.com`.
+4. Save the change.
+
+Enter only the hostname. Do not include `https://`, a path, or a trailing slash.
+
+## Create the DNS records
+
+After you save the hostname, the dashboard shows the DNS records for your store. Copy the exact values it shows into your DNS provider.
+
+| Purpose | Type | Name | Value |
+| --- | --- | --- | --- |
+| Storefront routing | CNAME or provider-supported apex alias/flattening | The configured hostname | `dns.gamecart.gg` |
+| TLS validation and renewal | CNAME | `_acme-challenge.<hostname>` | The unique `*.dcv.cloudflare.com` value shown by Gamecart |
+
+If your DNS provider has a proxy setting, set both records to **DNS only**. Do not proxy either record through your DNS provider.
+
+<Tip>
+  DNS providers format record names differently. Some expect the full hostname, while others append the zone automatically. Check the resulting record before you save it.
+</Tip>
+
+## Use a subdomain for the simplest setup
+
+An apex domain such as `example.com` needs DNS-provider support for CNAME flattening or an ALIAS-equivalent record. If your provider does not support that, use a subdomain such as `store.example.com` instead.
+
+## Check activation
+
+Gamecart checks the provider-owned domain status after you add the records. Activation is polled, so it may not be immediate.
+
+- `PENDING` means the records or provider validation are still incomplete.
+- `ACTIVE` means routing and TLS are active.
+- `FAILED` means validation reached a permanent failure. Check your records before you select **Recheck** in **Settings > Domain**.
+
+## Troubleshoot DNS setup
+
+If the domain does not become active:
+
+- Check that the configured hostname and `_acme-challenge` record were not expanded into the wrong name by your DNS provider.
+- Confirm that both records are **DNS only** when your provider offers proxying.
+- Remove or correct stale, conflicting `A`, `AAAA`, or `CNAME` records for the same hostname.
+- For an apex domain, confirm that your provider supports flattening or an ALIAS-equivalent record.
+- Allow time for DNS propagation before selecting **Recheck**.
+
+<Warning>
+  Do not delete working DNS records until you understand the replacement path. A record that looks unrelated can still serve another website, email service, or integration.
+</Warning>

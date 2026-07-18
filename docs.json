@@ -57,6 +57,12 @@
             ]
           },
           {
+            "group": "Store setup",
+            "pages": [
+              "tutorials/store-setup/custom-domain"
+            ]
+          },
+          {
             "group": "Server delivery",
             "pages": [
               "tutorials/server-delivery/overview",
