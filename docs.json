@@ -61,7 +61,8 @@
             "pages": [
               "tutorials/server-delivery/overview",
               "tutorials/server-delivery/connect-server",
-              "tutorials/server-delivery/minecraft"
+              "tutorials/server-delivery/minecraft",
+              "tutorials/server-delivery/hytale"
             ]
           }
         ]

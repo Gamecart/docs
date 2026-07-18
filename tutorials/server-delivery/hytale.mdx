@@ -1,0 +1,47 @@
+---
+title: "Install the Hytale executor"
+description: "Connect a Hytale server to Gamecart command delivery"
+---
+
+Use this tutorial after you [connect a server](/tutorials/server-delivery/connect-server) with the `PLUGIN` method.
+
+## Before you begin
+
+Make sure you have:
+
+- Java 25.
+- Hytale Server release API `0.5.6`.
+- A Gamecart server configured as `PLUGIN`.
+- The Gamecart Hytale executor JAR.
+
+Download coming soon. You must already have the JAR before continuing.
+
+## Install and configure the executor
+
+1. Copy the JAR into your Hytale server's `mods/` directory.
+2. Start the server once to generate `mods/Gamecart_Gamecart/config.properties`.
+3. Open `mods/Gamecart_Gamecart/config.properties` and set your server token.
+4. Restart the server, or run `gamecart reload` after saving a valid configuration.
+
+```properties
+serverToken=
+apiUrl=https://api.gamecart.gg
+pollIntervalSeconds=5
+debug=false
+```
+
+Copy the server token from **Integrations > Servers**. Keep it secret.
+
+Set `pollIntervalSeconds` from `2` through `300`. Use HTTPS for `apiUrl` outside a loopback testing environment. When `debug=true`, the executor logs only sanitized state and status information; it does not log the token, commands, player identifiers, request or response bodies, buyer, or order data.
+
+## Operate the executor
+
+The console and users with the `gamecart.admin` permission can run `gamecart status` to view the plugin version, pinned Hytale release, connector state, last poll, and current backoff. Run `gamecart reload` to validate and safely apply configuration changes. A reload also retries a pending callback without dispatching its command again.
+
+Use exactly one Hytale executor installation for each Gamecart server token. The executor processes one command and its `done` or `fail` callback before pulling another.
+
+Network errors and `408`, `429`, and `5xx` responses use capped backoff before polling again. Invalid credentials, unexpected redirects or client errors, and malformed, invalid, or oversized API responses stop polling until you reload the configuration or restart the server.
+
+<Warning>
+  If the executor runs a command but loses its callback, manually resending the command can duplicate fulfillment. Stop the original executor and confirm that risk in the Gamecart dashboard before resending.
+</Warning>
