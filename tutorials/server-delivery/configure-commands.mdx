@@ -37,6 +37,13 @@ Use product commands to tell Gamecart what to send to a selected server integrat
   </Step>
 </Steps>
 
+## Understand triggers and quantity
+
+- **On Purchase** queues the command after the payment is approved.
+- **On Expiration** is scheduled after the payment is approved only when the purchased item has an expiration date.
+- **On Dispute** also covers refund, rejection, cancellation, and dispute payment outcomes.
+- **Ignore quantity** queues the command once. When it is disabled, Gamecart queues one command for each purchased unit.
+
 ## Use the recipient placeholder
 
 Use `{account_identifier}` where the command needs the buyer's delivery identity.
