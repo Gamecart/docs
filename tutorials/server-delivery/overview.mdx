@@ -1,0 +1,32 @@
+---
+title: "Server delivery overview"
+description: "Choose how Gamecart sends purchase commands to your game server"
+---
+
+Gamecart queues fulfillment commands after an order reaches the required payment state. Choose the delivery method that matches your store's game and server runtime.
+
+## Choose a delivery method
+
+| Store game | Supported methods | Recommended starting point |
+| --- | --- | --- |
+| Minecraft | Gamecart plugin or RCON | Use the plugin for most servers and proxies. |
+| Hytale | Gamecart plugin | Install the Hytale executor. |
+| FiveM | Gamecart script | Install the FiveM server resource. |
+| Other | Compatible connector or Source/Minecraft-compatible RCON | Confirm runtime compatibility before setup. |
+
+<Warning>
+  Use one active executor installation for each server token. Reusing a token across installations can send a command to the wrong runtime.
+</Warning>
+
+## Setup path
+
+<Steps>
+  <Step title="Create the server integration">Open **Integrations > Servers**, create the connection, and copy its token when the selected method uses one.</Step>
+  <Step title="Install or configure delivery">Follow the tutorial for your game and delivery method.</Step>
+  <Step title="Add product commands">Choose the target server and create the commands that Gamecart queues for the product.</Step>
+  <Step title="Run a controlled test">Place a controlled order and verify the command in the dashboard and on the game server.</Step>
+</Steps>
+
+<Card title="Connect a server" icon="plug" href="/tutorials/server-delivery/connect-server">
+  Create a server integration and protect its connection token.
+</Card>

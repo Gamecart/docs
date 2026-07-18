@@ -1,0 +1,36 @@
+---
+title: "Connect a server"
+description: "Create a Gamecart server integration and protect its connection token"
+---
+
+Create a server integration before you install a Gamecart delivery method on your game server.
+
+## Before you begin
+
+Make sure you have:
+
+- A selected store in the dashboard.
+- `MANAGE_SERVERS` access for that store.
+- The target game server runtime identified.
+
+## Create the connection
+
+In the dashboard, open **Integrations > Servers**. Select **Create server**, choose the delivery type that matches your runtime, give the integration a descriptive name, and save it.
+
+## Copy the token
+
+Only `PLUGIN` and `SCRIPT` server integrations use a connection token. The token remains recoverable in the dashboard so you can copy it when configuring the executor.
+
+Never include the token in screenshots, logs, repositories, or support messages.
+
+## Use one installation per token
+
+Run only one executor installation for each server token. If two installations use the same token, either one can receive a command intended for the other runtime.
+
+## Rotate safely
+
+Stop the executor before rotating its token. Then replace the token in its configuration and reload or restart the executor.
+
+## Next step
+
+Return to the [server delivery overview](/tutorials/server-delivery/overview) until the platform-specific setup tutorials are available.

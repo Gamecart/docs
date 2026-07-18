@@ -51,9 +51,16 @@
         "icon": "graduation-cap",
         "groups": [
           {
-            "group": "Tutorials",
+            "group": "Overview",
             "pages": [
               "tutorials/overview"
+            ]
+          },
+          {
+            "group": "Server delivery",
+            "pages": [
+              "tutorials/server-delivery/overview",
+              "tutorials/server-delivery/connect-server"
             ]
           }
         ]
