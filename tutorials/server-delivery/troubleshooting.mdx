@@ -39,6 +39,13 @@ Use a controlled test before you rely on server delivery for live purchases. Tes
 | `FAILED` | The delivery path could not complete the command. Review the safe status or error shown by Gamecart, then check the target command. |
 | `UNCERTAIN` | An internal RCON delivery could not determine whether the command took effect. Check the server and use operator judgment before you resend it. |
 
+<Frame caption="Use the Commands page to distinguish queued, failed, and completed delivery attempts.">
+  <img
+    src="/images/tutorials/server-delivery/command-statuses.png"
+    alt="Command queue with scheduled, failed, and executed statuses highlighted"
+  />
+</Frame>
+
 ## Troubleshoot common symptoms
 
 | Symptom | First check |
@@ -53,5 +60,12 @@ Use a controlled test before you rely on server delivery for live purchases. Tes
 <Warning>
   Resend creates a new delivery attempt and may duplicate a command that already ran. Stop any duplicate executor installations, inspect the server, and confirm the dashboard warning before you proceed.
 </Warning>
+
+<Frame caption="Read and accept the duplicate-delivery risk only after you verify the original attempt.">
+  <img
+    src="/images/tutorials/server-delivery/resend-warning.png"
+    alt="Resend warning dialog with the duplicate-delivery message and confirmation action highlighted"
+  />
+</Frame>
 
 If the issue continues after these checks, keep the visible command status and the safe runtime information available when you contact support. Do not share tokens, credentials, or buyer data.

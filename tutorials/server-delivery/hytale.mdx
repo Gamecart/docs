@@ -32,6 +32,13 @@ debug=false
 
 Copy the server token from **Integrations > Servers**. Keep it secret.
 
+<Frame caption="Use the masked token from the Hytale connection assigned to this executor.">
+  <img
+    src="/images/tutorials/server-delivery/server-token.png"
+    alt="Hytale server connection row with its masked token highlighted"
+  />
+</Frame>
+
 Set `pollIntervalSeconds` from `2` through `300`. Use HTTPS for `apiUrl` outside a loopback testing environment. When `debug=true`, the executor logs only sanitized state and status information; it does not log the token, commands, player identifiers, request or response bodies, buyer, or order data.
 
 ## Operate the executor

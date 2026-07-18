@@ -23,6 +23,13 @@ You need:
 
 Enter only the hostname. Do not include `https://`, a path, or a trailing slash.
 
+<Frame caption="Enable the custom domain, enter only the hostname, and save the change.">
+  <img
+    src="/images/tutorials/custom-domain/custom-domain-form.png"
+    alt="Custom domain settings with the enable control, hostname field, and save action highlighted"
+  />
+</Frame>
+
 ## Create the DNS records
 
 After you save the hostname, the dashboard shows the DNS records for your store. Copy the exact values it shows into your DNS provider.
@@ -31,6 +38,13 @@ After you save the hostname, the dashboard shows the DNS records for your store.
 | --- | --- | --- | --- |
 | Storefront routing | CNAME or provider-supported apex alias/flattening | The configured hostname | `dns.gamecart.gg` |
 | TLS validation and renewal | CNAME | `_acme-challenge.<hostname>` | The unique `*.dcv.cloudflare.com` value shown by Gamecart |
+
+<Frame caption="Copy both DNS records exactly as the dashboard shows them.">
+  <img
+    src="/images/tutorials/custom-domain/dns-records.png"
+    alt="Custom domain DNS table with the routing and TLS validation records highlighted"
+  />
+</Frame>
 
 If your DNS provider has a proxy setting, set both records to **DNS only**. Do not proxy either record through your DNS provider.
 
@@ -49,6 +63,20 @@ Gamecart checks the provider-owned domain status after you add the records. Acti
 - `PENDING` means the records or provider validation are still incomplete.
 - `ACTIVE` means routing and TLS are active.
 - `FAILED` means validation reached a permanent failure. Check your records before you select **Recheck** in **Settings > Domain**.
+
+<Frame caption="A pending domain keeps the required DNS records visible while Gamecart validates them.">
+  <img
+    src="/images/tutorials/custom-domain/domain-pending.png"
+    alt="Custom domain settings with the pending status and DNS records highlighted"
+  />
+</Frame>
+
+<Frame caption="An active status confirms that routing and TLS are ready for the storefront hostname.">
+  <img
+    src="/images/tutorials/custom-domain/domain-active.png"
+    alt="Custom domain settings with the active status and activation date highlighted"
+  />
+</Frame>
 
 ## Troubleshoot DNS setup
 

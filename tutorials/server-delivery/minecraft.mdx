@@ -40,6 +40,13 @@ debug=false
 
 Copy the server token from **Integrations > Servers**. Keep it secret.
 
+<Frame caption="Use the masked token from the exact Minecraft connection you are configuring.">
+  <img
+    src="/images/tutorials/server-delivery/server-token.png"
+    alt="Minecraft server connection row with its masked token highlighted"
+  />
+</Frame>
+
 Set `pollIntervalSeconds` from `2` through `300`. Use HTTPS for `apiUrl` outside a loopback smoke environment. When `debug=true`, the executor logs only sanitized state and status information; it does not log the token, commands, player identifiers, request or response bodies, buyer, or order data.
 
 ## Understand where commands run

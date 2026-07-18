@@ -29,6 +29,13 @@ module.exports = Object.freeze({
 
 Copy the server token from **Integrations > Servers**. Keep it secret.
 
+<Frame caption="Use the masked token from the FiveM connection assigned to this resource.">
+  <img
+    src="/images/tutorials/server-delivery/server-token.png"
+    alt="FiveM server connection row with its masked token highlighted"
+  />
+</Frame>
+
 Set `pollIntervalSeconds` from `2` through `300`. Use HTTPS for `apiUrl` outside a loopback development endpoint. When `debug=true`, the executor writes only sanitized operational state and status logs; it does not log the token, commands, player nicknames, HTTP bodies, buyer, or order data.
 
 ## Grant command permissions
