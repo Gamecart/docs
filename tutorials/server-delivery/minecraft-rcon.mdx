@@ -1,0 +1,47 @@
+---
+title: "Configure Minecraft RCON"
+description: "Connect Gamecart directly to a Minecraft RCON server"
+---
+
+Use RCON when you want Gamecart to deliver Minecraft commands directly to a compatible server. RCON is also available for supported Source/Minecraft-compatible targets in the **Other** game category.
+
+Gamecart executes RCON itself. You do not install a polling executor or use a server token for this delivery method.
+
+## Before you begin
+
+Make sure that RCON is enabled on the target server. Have its publicly reachable DNS hostname or IP address, RCON port, and RCON password ready.
+
+Only make the RCON service reachable for Gamecart. Where your deployment topology permits it, allowlist the required source and restrict firewall access. Do not expose unrelated administration services to the internet.
+
+<Warning>
+  RCON is not a universal delivery method. Do not use it for Hytale or FiveM. Use the matching Gamecart executor for those games.
+</Warning>
+
+## Create the RCON server integration
+
+1. In the dashboard, open **Integrations > Servers**.
+2. Select **Create server**.
+3. Give the integration a recognizable name and choose **RCON** as the delivery type.
+4. Enter the public RCON host. Use a DNS hostname or IP address that Gamecart can reach.
+5. Enter the RCON port. The dashboard accepts ports from `1` through `65535`.
+6. Enter the RCON password and save the integration.
+
+RCON server integrations do not use a server token. Do not copy a token from another server integration into this form.
+
+## Verify the connection details
+
+Return to **Integrations > Servers** after saving. The server list shows the configured host and port, plus whether a password is configured. It does not return the RCON password.
+
+Create a controlled product command and place a controlled order. Check the command status in the dashboard and confirm the result on the game server.
+
+If a command needs attention, confirm whether it ran on the server before you resend it. A resend can repeat fulfillment when the earlier result was not confirmed.
+
+## Troubleshoot a failed delivery
+
+Check that RCON is enabled, the public host and port are correct, and the firewall permits the connection. Then update the server integration if needed and run another controlled test.
+
+Keep the RCON password private. Do not include it in screenshots, logs, repositories, or support messages.
+
+## Next step
+
+Return to the [server delivery overview](/tutorials/server-delivery/overview) to compare other delivery methods.
