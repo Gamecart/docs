@@ -3,7 +3,7 @@
 ## About this project
 
 - This is the official public documentation site for Gamecart.
-- This repository lives outside the main `dev-workspace` repo at `C:\Users\tanz\Documents\develop\gamecart\repos\documentation`.
+- This repository lives outside the main `workspace` repo at `C:\Users\tanz\Documents\develop\gamecart\dev\repositories\docs`.
 - The site is built with Mintlify.
 - Pages are MDX files with YAML frontmatter.
 - Configuration lives in `docs.json`.
