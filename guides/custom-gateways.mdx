@@ -3,15 +3,15 @@ title: "Custom gateways"
 description: "Connect a store-owned payment gateway to Gamecart checkout"
 ---
 
-Custom gateways let a store route checkout to a seller-owned payment provider. Gamecart creates the order, calls your payment creation endpoint, redirects the buyer to your `paymentUrl`, and waits for your signed callback.
+With a custom gateway, your store can send checkout to a payment provider you control. Gamecart creates the order and calls your payment creation endpoint. It then redirects the buyer to your `paymentUrl` and waits for your signed callback.
 
-This guide documents the current contract implemented by Gamecart.
+This page describes Gamecart's current custom gateway contract.
 
 ## Flow
 
 <Steps>
   <Step title="Configure the gateway">
-    Add a custom gateway in the dashboard with a public HTTPS payment creation URL. Gamecart generates a shared secret.
+    Add the gateway in the dashboard and provide a public HTTPS payment creation URL. Gamecart generates the shared secret.
   </Step>
 
   <Step title="Buyer selects the gateway">
@@ -19,7 +19,7 @@ This guide documents the current contract implemented by Gamecart.
   </Step>
 
   <Step title="Gamecart creates a payment">
-    Gamecart persists a pending order, then sends a signed `payment.create` request to your payment creation URL.
+    Gamecart saves a pending order and sends a signed `payment.create` request to your payment creation URL.
   </Step>
 
   <Step title="You return a payment URL">
@@ -43,7 +43,7 @@ This guide documents the current contract implemented by Gamecart.
   </Step>
 
   <Step title="Fill in display details">
-    Add the gateway name, optional description, sort order, and optional icon URL. These values help buyers recognize the payment method at checkout.
+    Add the gateway name and sort order. You can also add a description and icon URL so buyers can identify the payment method at checkout.
   </Step>
 
   <Step title="Enter the payment creation URL">
@@ -51,7 +51,7 @@ This guide documents the current contract implemented by Gamecart.
   </Step>
 
   <Step title="Choose the timeout and enabled state">
-    Pick a request timeout between `1000` and `30000` milliseconds. Keep the gateway disabled until your endpoint is ready.
+    Set a request timeout from `1000` through `30000` milliseconds. Leave the gateway disabled until your endpoint is ready.
   </Step>
 
   <Step title="Save and copy the shared secret">
@@ -103,7 +103,7 @@ Rules:
 
 - `gatewayType: "CUSTOM"` requires `customGatewayId`.
 - Native gateways reject `customGatewayId`.
-- The custom gateway must belong to the store, be enabled, not deleted, allowed by plan, and have a safe public payment creation URL.
+- The custom gateway must belong to the store. It must also be enabled, available on the store's plan, and configured with a safe public payment creation URL. Deleted gateways are invalid.
 - Gamecart revalidates the cart and totals before it calls your gateway.
 
 Checkout response:
@@ -161,7 +161,7 @@ Request body:
 }
 ```
 
-Verify `Gamecart-Signature` with the shared secret before creating a payment. See [Webhook signatures](/webhooks/signatures) for the canonical string.
+Before creating a payment, verify `Gamecart-Signature` with the shared secret. See [Webhook signatures](/webhooks/signatures) for the canonical string.
 
 Your response must be `2xx` JSON:
 
@@ -177,8 +177,8 @@ Rules:
 - `paymentUrl` is required.
 - `paymentUrl` must be an absolute public HTTPS URL.
 - `externalPaymentId` is optional and must be at most `255` characters.
-- Gamecart does not follow redirects when calling your payment creation URL.
-- If payment creation fails, Gamecart cancels the pending order and releases coupon reservations.
+- Gamecart does not follow redirects from your payment creation URL.
+- If your service cannot create the payment, Gamecart cancels the pending order and releases its coupon reservations.
 
 ## Your callback to Gamecart
 
@@ -214,4 +214,4 @@ Rules:
 - The order must belong to the store and custom gateway in the URL.
 - Sign the raw JSON body with the shared secret and the same canonical payload format.
 
-Gamecart returns `202 Accepted` when the callback is accepted. Duplicate successful callback `eventId` values for the same custom gateway are idempotent.
+Gamecart returns `202 Accepted` when it accepts the callback. If the same custom gateway sends a successful callback `eventId` more than once, Gamecart handles it idempotently.

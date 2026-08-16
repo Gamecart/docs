@@ -16,7 +16,7 @@ Use this tutorial after you [connect a server](/tutorials/server-delivery/connec
 | Fabric 1.21.11 | `gamecart-fabric-1.21.11` | Java 21 |
 | Fabric 26.1 | `gamecart-fabric-26.1` | Java 25 |
 
-Download coming soon. You must already have the matching JAR before continuing.
+Downloads are not available from this page yet. Continue only if you already have the matching JAR.
 
 For Fabric, install the matching Fabric API line as well:
 
@@ -47,17 +47,17 @@ Copy the server token from **Integrations > Servers**. Keep it secret.
   />
 </Frame>
 
-Set `pollIntervalSeconds` from `2` through `300`. Use HTTPS for `apiUrl` outside a loopback smoke environment. When `debug=true`, the executor logs only sanitized state and status information; it does not log the token, commands, player identifiers, request or response bodies, buyer, or order data.
+Set `pollIntervalSeconds` to a value from `2` through `300`. Unless you are testing on loopback, `apiUrl` must use HTTPS. With `debug=true`, the executor logs sanitized state and status information. It does not log tokens, commands, player identifiers, HTTP bodies, buyer data, or order data.
 
 ## Understand where commands run
 
-Spigot, Paper, Purpur, Folia, and Fabric execute commands on the local server console. BungeeCord and Velocity execute commands on the proxy console; they do not automatically forward commands to backend servers.
+Spigot, Paper, Purpur, Folia, and Fabric run commands on the local server console. BungeeCord and Velocity run them on the proxy console and do not automatically forward them to backend servers.
 
 Folia support covers the Gamecart adapter. It does not guarantee that arbitrary third-party commands are safe on Folia.
 
 ## Operate the executor
 
-Run `gamecart status` to view its operational state. Run `gamecart reload` to validate and safely apply configuration changes.
+Use `gamecart status` to check the executor state. After changing its configuration, use `gamecart reload` to validate and apply the new values.
 
 Network errors and `408`, `429`, and `5xx` responses back off before polling again. Invalid credentials and other non-retryable protocol failures stop polling until you reload the configuration or restart the runtime.
 

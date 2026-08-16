@@ -3,7 +3,7 @@ title: "Test and troubleshoot server delivery"
 description: "Run a controlled delivery test and resolve common command-delivery issues"
 ---
 
-Use a controlled test before you rely on server delivery for live purchases. Test with a dedicated product and a safe target account so you can verify the result without affecting a player’s normal inventory or progress.
+Run a controlled test before you use server delivery for live purchases. Use a dedicated product and test account so the result cannot affect a player's normal inventory or progress.
 
 ## Run a controlled delivery test
 
@@ -13,7 +13,7 @@ Use a controlled test before you rely on server delivery for live purchases. Tes
   </Step>
 
   <Step title="Prepare test data">
-    Create a dedicated test product and use a dedicated account identifier that you can inspect on the target server.
+    Create a test product and use an account identifier that you can inspect on the target server.
   </Step>
 
   <Step title="Place the test order">
@@ -21,11 +21,11 @@ Use a controlled test before you rely on server delivery for live purchases. Tes
   </Step>
 
   <Step title="Follow the command">
-    In the dashboard, open **Commands** and follow the command’s visible status.
+    Open **Commands** in the dashboard and watch the command status.
   </Step>
 
   <Step title="Verify the result">
-    Confirm the expected effect on the target server. A console accepting a dispatch does not by itself prove that the command had the intended effect.
+    Check the target server for the expected result. A console that accepts a dispatch does not prove that the command worked as intended.
   </Step>
 </Steps>
 
@@ -33,9 +33,9 @@ Use a controlled test before you rely on server delivery for live purchases. Tes
 
 | Status | What it means |
 | --- | --- |
-| `SCHEDULED` | The command is queued and waiting for its delivery path to handle it. |
-| `PROCESSING` | A delivery path is currently handling the command. Wait for it to reach a final state before taking manual action. |
-| `EXECUTED` | Gamecart recorded the delivery as completed. Verify the expected effect on the server when it matters. |
+| `SCHEDULED` | The command is queued for delivery. |
+| `PROCESSING` | The delivery method is handling the command. Wait for a final state before taking manual action. |
+| `EXECUTED` | Gamecart recorded the delivery as complete. Check the server when you need to confirm its effect. |
 | `FAILED` | The delivery path could not complete the command. Review the safe status or error shown by Gamecart, then check the target command. |
 | `UNCERTAIN` | An internal RCON delivery could not determine whether the command took effect. Check the server and use operator judgment before you resend it. |
 
@@ -68,4 +68,4 @@ Use a controlled test before you rely on server delivery for live purchases. Tes
   />
 </Frame>
 
-If the issue continues after these checks, keep the visible command status and the safe runtime information available when you contact support. Do not share tokens, credentials, or buyer data.
+If the problem continues, record the visible command status and safe runtime information before you contact support. Do not share tokens, credentials, or buyer data.

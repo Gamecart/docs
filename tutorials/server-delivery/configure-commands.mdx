@@ -3,7 +3,7 @@ title: "Configure product delivery commands"
 description: "Set the commands Gamecart sends when a product reaches a delivery trigger"
 ---
 
-Use product commands to tell Gamecart what to send to a selected server integration after a purchase event.
+Product commands tell Gamecart what to send to a server integration after a purchase event.
 
 ## Add a command to a product
 
@@ -17,7 +17,7 @@ Use product commands to tell Gamecart what to send to a selected server integrat
   </Step>
 
   <Step title="Choose when it runs">
-    Select **On Purchase**, **On Expiration**, or **On Dispute**. Choose the event that matches the command's purpose.
+    Select **On Purchase**, **On Expiration**, or **On Dispute**, based on when the command should run.
   </Step>
 
   <Step title="Select the target server">
@@ -29,7 +29,7 @@ Use product commands to tell Gamecart what to send to a selected server integrat
   </Step>
 
   <Step title="Set delivery behavior">
-    Open the command settings to choose whether **Offline delivery** is allowed, so the command may run while the player is offline. Use **Ignore quantity** when the command should run once even if the buyer purchases more than one unit.
+    Enable **Offline delivery** if the command may run while the player is offline. Enable **Ignore quantity** if it should run once even when the buyer purchases more than one unit.
   </Step>
 
   <Step title="Save the product">
@@ -59,7 +59,7 @@ Use `{account_identifier}` where the command needs the buyer's delivery identity
 lp user {account_identifier} parent add vip
 ```
 
-`{account_identifier}` is the fixed recipient value collected at checkout. Its label and validation depend on your store's game configuration. Seller-created variables can add other checkout information, but they do not replace the delivery identifier.
+`{account_identifier}` contains the recipient value collected at checkout. Its label and validation depend on your store's game configuration. Seller-created variables can collect other checkout information, but they cannot replace the delivery identifier.
 
 <Tip>
   Use the placeholder help in **Commands** to review the available placeholders before saving a command.

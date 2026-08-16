@@ -3,7 +3,7 @@ title: "Set up a custom domain"
 description: "Connect your own domain to a Gamecart storefront"
 ---
 
-Connect a domain you control to your Gamecart storefront. Gamecart manages routing and TLS after your DNS records are valid.
+You can use a domain you control for your Gamecart storefront. Once its DNS records are valid, Gamecart manages routing and TLS.
 
 ## Before you begin
 
@@ -32,7 +32,7 @@ Enter only the hostname. Do not include `https://`, a path, or a trailing slash.
 
 ## Create the DNS records
 
-After you save the hostname, the dashboard shows the DNS records for your store. Copy the exact values it shows into your DNS provider.
+After you save the hostname, the dashboard displays the DNS records for your store. Add those exact values at your DNS provider.
 
 | Purpose | Type | Name | Value |
 | --- | --- | --- | --- |
@@ -46,7 +46,7 @@ After you save the hostname, the dashboard shows the DNS records for your store.
   />
 </Frame>
 
-If your DNS provider has a proxy setting, set both records to **DNS only**. Do not proxy either record through your DNS provider.
+If your DNS provider offers proxying, set both records to **DNS only**.
 
 <Tip>
   DNS providers format record names differently. Some expect the full hostname, while others append the zone automatically. Check the resulting record before you save it.
@@ -54,11 +54,11 @@ If your DNS provider has a proxy setting, set both records to **DNS only**. Do n
 
 ## Use a subdomain for the simplest setup
 
-An apex domain such as `example.com` needs DNS-provider support for CNAME flattening or an ALIAS-equivalent record. If your provider does not support that, use a subdomain such as `store.example.com` instead.
+To use an apex domain such as `example.com`, your DNS provider must support CNAME flattening or an equivalent ALIAS record. Otherwise, use a subdomain such as `store.example.com`.
 
 ## Check activation
 
-Gamecart checks the provider-owned domain status after you add the records. Activation is polled, so it may not be immediate.
+After you add the records, Gamecart checks their status with the provider. This check runs periodically, so activation may take some time.
 
 - `PENDING` means the records or provider validation are still incomplete.
 - `ACTIVE` means routing and TLS are active.
@@ -86,7 +86,7 @@ If the domain does not become active:
 - Confirm that both records are **DNS only** when your provider offers proxying.
 - Remove or correct stale, conflicting `A`, `AAAA`, or `CNAME` records for the same hostname.
 - For an apex domain, confirm that your provider supports flattening or an ALIAS-equivalent record.
-- Allow time for DNS propagation before selecting **Recheck**.
+- Wait for DNS changes to propagate before selecting **Recheck**.
 
 <Warning>
   Do not delete working DNS records until you understand the replacement path. A record that looks unrelated can still serve another website, email service, or integration.

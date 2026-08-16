@@ -3,7 +3,7 @@ title: "Orders API"
 description: "Read store orders and payment status with seller API tokens"
 ---
 
-The Orders API is the first seller API surface. It is read-only and scoped to the store that owns the API token.
+The read-only Orders API returns data for the store that owns the API token.
 
 All endpoints require:
 
@@ -117,4 +117,4 @@ Payment statuses:
 
 ## Not found and access denied
 
-If the token belongs to another store, or the order does not exist, Gamecart returns a Problem Details error instead of exposing which condition happened.
+If the order does not exist or belongs to another store, Gamecart returns the same Problem Details error for both cases.

@@ -3,7 +3,7 @@ title: "Webhooks"
 description: "Configure signed order events from the Gamecart dashboard"
 ---
 
-Gamecart can deliver order events to an HTTPS endpoint that you control. Webhooks are outbound notifications from Gamecart to your application.
+Gamecart sends order events to an HTTPS endpoint that you control. Each webhook is an outbound notification to your application.
 
 Webhook delivery requires a store plan with the `WEBHOOK` feature.
 
@@ -17,7 +17,7 @@ You need:
 - A plan that includes webhooks.
 - A place to store the webhook secret securely.
 
-Your endpoint should respond quickly. Do any slow work asynchronously after you accept the event.
+Return a response quickly. After accepting the event, move slow work to an asynchronous process.
 
 ## Add a webhook endpoint in the dashboard
 
@@ -31,11 +31,11 @@ Your endpoint should respond quickly. Do any slow work asynchronously after you 
   </Step>
 
   <Step title="Create an endpoint">
-    Click **Create endpoint** and enter a clear name, such as `Production order worker`.
+    Click **Create endpoint** and name it after its purpose, such as `Production order worker`.
   </Step>
 
   <Step title="Enter the destination URL">
-    Paste your public HTTPS webhook URL. Gamecart validates external URLs before saving or delivering events.
+    Paste your public HTTPS webhook URL. Gamecart validates it before saving the endpoint or sending events.
   </Step>
 
   <Step title="Choose events">
@@ -99,7 +99,7 @@ See [Webhook signatures](/webhooks/signatures) for verification.
 
 ## Review delivery logs
 
-Use the **Deliveries** view for an endpoint to inspect recent attempts. Each delivery shows the event id, event type, status, attempt count, last HTTP status, last error, and next retry time when applicable.
+Open an endpoint's **Deliveries** view to inspect recent attempts. Each entry shows the event ID, event type, status, attempt count, latest HTTP status, latest error, and next retry time when applicable.
 
 Delivery statuses are:
 
@@ -113,6 +113,6 @@ Delivery statuses are:
 
 Gamecart treats any `2xx` response as delivered.
 
-For non-`2xx` responses, network failures, or invalid targets, Gamecart records the attempt and retries up to `5` attempts. Retry delay is `attemptCount * 5` minutes after each failed attempt.
+For a non-`2xx` response, network failure, or invalid target, Gamecart records the failure and makes up to `5` attempts. After each failure, the retry delay is `attemptCount * 5` minutes.
 
 If your endpoint receives the same `eventId` more than once, process it once and return `2xx` for later duplicates.

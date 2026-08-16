@@ -3,9 +3,9 @@ title: "API reference"
 description: "Verified seller-facing API contracts for Gamecart integrations"
 ---
 
-Gamecart exposes a narrow seller API for external integrations, plus signed webhooks and custom gateway contracts.
+Gamecart provides a seller API for external integrations, signed webhooks, and custom gateway contracts.
 
-These pages are verified against the current backend REST resources and DTOs. Do not rely on older drafts or examples from support conversations.
+The contracts on these pages match the current backend REST resources and DTOs. Older drafts and examples from support conversations may no longer match the API.
 
 ## Base URLs
 
@@ -21,7 +21,7 @@ Storefront checkout helpers use this scoped base:
 https://api.gamecart.gg/v1/stores
 ```
 
-API tokens, webhook endpoints, and gateway settings are created from the Gamecart dashboard. The public docs explain those dashboard workflows and only show raw HTTP contracts for calls your own integration needs to make or receive.
+Create API tokens, webhook endpoints, and gateway settings in the Gamecart dashboard. These pages show raw HTTP contracts only for requests your integration sends or receives.
 
 ## Authentication modes
 
@@ -63,7 +63,7 @@ API errors use Problem Details:
 }
 ```
 
-The exact `detail` text is localized by the backend. Integrations should branch on HTTP status and `code`, not on translated text.
+The backend localizes `detail`. Use the HTTP status and `code` in your integration logic instead of matching translated text.
 
 ## Scopes
 

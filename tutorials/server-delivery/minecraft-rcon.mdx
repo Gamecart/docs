@@ -3,15 +3,15 @@ title: "Configure Minecraft RCON"
 description: "Connect Gamecart directly to a Minecraft RCON server"
 ---
 
-Use RCON when you want Gamecart to deliver Minecraft commands directly to a compatible server. RCON is also available for supported Source/Minecraft-compatible targets in the **Other** game category.
+RCON lets Gamecart deliver Minecraft commands directly to a compatible server. It also supports compatible Source or Minecraft targets in the **Other** game category.
 
 Gamecart executes RCON itself. You do not install a polling executor or use a server token for this delivery method.
 
 ## Before you begin
 
-Make sure that RCON is enabled on the target server. Have its publicly reachable DNS hostname or IP address, RCON port, and RCON password ready.
+Enable RCON on the target server before you begin. You also need its public DNS hostname or IP address, RCON port, and RCON password.
 
-Only make the RCON service reachable for Gamecart. Where your deployment topology permits it, allowlist the required source and restrict firewall access. Do not expose unrelated administration services to the internet.
+Limit public access to the RCON service that Gamecart needs. If your deployment allows it, restrict firewall access to the required source. Keep unrelated administration services off the public internet.
 
 <Warning>
   RCON is not a universal delivery method. Do not use it for Hytale or FiveM. Use the matching Gamecart executor for those games.
@@ -37,7 +37,7 @@ RCON server integrations do not use a server token. Do not copy a token from ano
 
 ## Verify the connection details
 
-Return to **Integrations > Servers** after saving. The server list shows the configured host and port, plus whether a password is configured. It does not return the RCON password.
+After saving, return to **Integrations > Servers**. The list shows the configured host and port and whether the integration has a password. It never displays the RCON password.
 
 Create a controlled product command and place a controlled order. Check the command status in the dashboard and confirm the result on the game server.
 

@@ -3,7 +3,7 @@ title: "Webhook signatures"
 description: "Verify Gamecart HMAC signatures for outbound webhooks and custom gateway callbacks"
 ---
 
-Gamecart signs webhook payloads with HMAC-SHA256. Always verify the signature before processing the event.
+Gamecart signs webhook payloads with HMAC-SHA256. Verify the signature before you process an event.
 
 ## Header format
 
@@ -14,7 +14,7 @@ Gamecart-Signature: t=<unix_epoch_seconds>,v1=<hex_hmac_sha256>
 Gamecart-Event-Id: <event_id>
 ```
 
-The timestamp is inside `Gamecart-Signature`. Outbound webhooks do not require a separate `Gamecart-Timestamp` header.
+Read the timestamp from `Gamecart-Signature`. Outbound webhooks do not include a separate `Gamecart-Timestamp` header.
 
 Custom gateway `payment.create` requests include both the signature header and a separate timestamp header:
 
@@ -44,7 +44,7 @@ Rules:
 
 ## Verification window
 
-Reject signatures outside a `5` minute clock-skew window. Gamecart uses the same tolerance for custom gateway callbacks.
+Reject a signature when its timestamp differs from your server clock by more than `5` minutes. Gamecart applies the same tolerance to custom gateway callbacks.
 
 ## Node.js example
 
@@ -81,4 +81,4 @@ function verifyGamecartSignature({ secret, signatureHeader, eventId, rawBody }) 
 }
 ```
 
-Store processed `eventId` values in your application. If Gamecart retries the same event, return `2xx` after confirming it was already handled.
+Store each processed `eventId`. If Gamecart retries an event you already handled, return `2xx` without processing it again.

@@ -32,6 +32,13 @@
 - Bold for UI elements: Click **Settings**.
 - Code formatting for file names, commands, paths, and code references.
 
+## Required writing skill
+
+- Before writing, rewriting, or reviewing prose in any documentation file, read and apply `.agents/skills/humanizer/SKILL.md`.
+- Use the skill in embedded mode so documentation files receive only the final humanized text.
+- Preserve frontmatter, code blocks, data, link targets, and verified technical meaning while applying the skill.
+- This requirement applies to public MDX pages and internal documentation under `.docs/`.
+
 ## Content boundaries
 
 - Document public workflows, tutorials, API behavior, and webhook behavior that a seller or integration developer can rely on.

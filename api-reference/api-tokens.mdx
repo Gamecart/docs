@@ -3,9 +3,9 @@ title: "API tokens"
 description: "Create seller API tokens from the Gamecart dashboard"
 ---
 
-API tokens authenticate server-to-server calls to `/v1/seller/*`. Use them when your own backend needs to read Gamecart orders or payment status.
+API tokens authenticate server-to-server requests to `/v1/seller/*`. Use one when your backend needs to read Gamecart orders or payment status.
 
-Gamecart stores only token hashes and prefixes. The raw token is shown only once when you create or rotate it.
+Gamecart stores the token hash and prefix, not the raw token. You can see the raw value only when you create or rotate it.
 
 <Warning>
   Copy the raw token immediately and store it in your secret manager. Gamecart cannot show the same token again.
@@ -33,11 +33,11 @@ You need:
   </Step>
 
   <Step title="Create a token">
-    Click **Create token**. Use a name that identifies the system that will use it, such as `Fulfillment service` or `Analytics sync`.
+    Click **Create token**. Name it after the system that will use it, such as `Fulfillment service` or `Analytics sync`.
   </Step>
 
   <Step title="Choose scopes">
-    Select only the scopes your integration needs. Start narrow and add scopes later when the integration requires them.
+    Select only the scopes your integration needs. You can add access later if its requirements change.
   </Step>
 
   <Step title="Copy the token">
@@ -57,9 +57,9 @@ If you are building delivery automation, start with `orders:read` and `payments:
 
 ## Rotate or revoke a token
 
-Use **Rotate** when a token may have leaked or when your secret rotation policy requires a new value. Gamecart shows the new raw token once, and the previous value stops working.
+Use **Rotate** if a token may have leaked or your secret policy requires a new value. Gamecart shows the replacement once and disables the previous value.
 
-Use **Revoke** when an integration is retired or no longer trusted. Revoked tokens cannot authenticate seller API calls.
+Use **Revoke** when you retire an integration or no longer trust it. A revoked token cannot authenticate seller API requests.
 
 ## Use a token from your backend
 
@@ -72,7 +72,7 @@ Authorization: Bearer gci_...
 
 Never expose the token in storefront JavaScript, public repositories, logs, screenshots, or support messages.
 
-Seller API calls are rate limited per token and endpoint. The current default is `120` requests per minute.
+Gamecart applies rate limits per token and endpoint. The current default is `120` requests per minute.
 
 ## Recommended setup
 

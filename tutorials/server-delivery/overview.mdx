@@ -3,7 +3,7 @@ title: "Server delivery overview"
 description: "Choose how Gamecart sends purchase commands to your game server"
 ---
 
-Gamecart queues fulfillment commands after an order reaches the required payment state. Choose the delivery method that matches your store's game and server runtime.
+Gamecart queues fulfillment commands when an order reaches the required payment state. The delivery method must match your store's game and server runtime.
 
 ## Choose a delivery method
 
@@ -21,10 +21,10 @@ Gamecart queues fulfillment commands after an order reaches the required payment
 ## Setup path
 
 <Steps>
-  <Step title="Create the server integration">Open **Integrations > Servers**, create the connection, and copy its token when the selected method uses one.</Step>
-  <Step title="Install or configure delivery">Follow the tutorial for your game and delivery method.</Step>
-  <Step title="Add product commands">Choose the target server and create the commands that Gamecart queues for the product.</Step>
-  <Step title="Run a controlled test">Place a controlled order, then [verify the command and troubleshoot delivery](/tutorials/server-delivery/troubleshooting).</Step>
+  <Step title="Create the server integration">Open **Integrations > Servers** and create the connection. Copy its token if the selected method uses one.</Step>
+  <Step title="Install or configure delivery">Follow the setup guide for your game and delivery method.</Step>
+  <Step title="Add product commands">Select the target server and add the commands Gamecart will queue for the product.</Step>
+  <Step title="Run a controlled test">Place a controlled order, then [check the command and troubleshoot any delivery problem](/tutorials/server-delivery/troubleshooting).</Step>
 </Steps>
 
 <Frame caption="Create and manage delivery connections from Integrations > Servers.">

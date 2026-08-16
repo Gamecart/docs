@@ -3,7 +3,7 @@ title: "Connect a server"
 description: "Create a Gamecart server integration and protect its connection token"
 ---
 
-Create a server integration before you install a Gamecart delivery method on your game server.
+Start by creating the server integration that Gamecart will use for delivery.
 
 ## Before you begin
 
@@ -15,7 +15,7 @@ Make sure you have:
 
 ## Create the connection
 
-In the dashboard, open **Integrations > Servers**. Select **Create server**, choose the delivery type that matches your runtime, give the integration a descriptive name, and save it.
+In the dashboard, open **Integrations > Servers** and select **Create server**. Choose the delivery type for your runtime, enter a name you will recognize, and save the integration.
 
 <Frame caption="Choose the delivery method and give the connection a recognizable name.">
   <img
@@ -26,7 +26,7 @@ In the dashboard, open **Integrations > Servers**. Select **Create server**, cho
 
 ## Copy the token
 
-Only `PLUGIN` and `SCRIPT` server integrations use a connection token. The token remains recoverable in the dashboard so you can copy it when configuring the executor.
+Only `PLUGIN` and `SCRIPT` integrations use a connection token. You can return to the dashboard to copy it when you configure the executor.
 
 Never include the token in screenshots, logs, repositories, or support messages.
 
@@ -43,8 +43,8 @@ Run only one executor installation for each server token. If two installations u
 
 ## Rotate safely
 
-Stop the executor before rotating its token. Then replace the token in its configuration and reload or restart the executor.
+Before you rotate a token, stop the executor. Replace the token in its configuration, then reload or restart it.
 
 ## Next step
 
-Continue with the matching setup: [Minecraft plugin](/tutorials/server-delivery/minecraft), [Hytale plugin](/tutorials/server-delivery/hytale), [FiveM script](/tutorials/server-delivery/fivem), or [Minecraft RCON](/tutorials/server-delivery/minecraft-rcon). Then [configure the product commands](/tutorials/server-delivery/configure-commands).
+Follow the setup for your delivery method: [Minecraft plugin](/tutorials/server-delivery/minecraft), [Hytale plugin](/tutorials/server-delivery/hytale), [FiveM script](/tutorials/server-delivery/fivem), or [Minecraft RCON](/tutorials/server-delivery/minecraft-rcon). Then [configure the product commands](/tutorials/server-delivery/configure-commands).
