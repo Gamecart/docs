@@ -55,11 +55,11 @@ You need:
 
 If you are building delivery automation, start with `orders:read` and `payments:read`. Add `orders:buyer:read` only if the external system needs buyer identity fields.
 
-## Rotate or revoke a token
+## Regenerate or delete a token
 
-Use **Rotate** if a token may have leaked or your secret policy requires a new value. Gamecart shows the replacement once and disables the previous value.
+Use **Regenerate token** if a token may have leaked or your secret policy requires a new value. The current secret stops working immediately, and Gamecart shows the replacement once.
 
-Use **Revoke** when you retire an integration or no longer trust it. A revoked token cannot authenticate seller API requests.
+Use **Delete token** when you retire an integration or no longer trust it. Deletion is permanent, and the token stops working immediately.
 
 ## Use a token from your backend
 
@@ -79,5 +79,5 @@ Gamecart applies rate limits per token and endpoint. The current default is `120
 - Create one token per external system.
 - Name tokens after the system, not a person.
 - Keep scopes minimal.
-- Rotate tokens after team member offboarding or suspected leakage.
-- Revoke unused tokens instead of keeping them as backups.
+- Regenerate tokens after team member offboarding or suspected leakage.
+- Delete unused tokens instead of keeping them as backups.
