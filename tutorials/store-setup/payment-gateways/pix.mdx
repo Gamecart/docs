@@ -1,0 +1,30 @@
+---
+title: "Pix (Mercado Pago)"
+description: "Accept Pix through Mercado Pago on a Gamecart store"
+---
+
+Pix is a Brazilian payment method. This page covers Pix through Mercado Pago. For Pix through Efí, see [Efí](/tutorials/store-setup/payment-gateways/efi).
+
+The store currency must be BRL. Buyers pay on a Gamecart Pix page with a QR code and copy-and-paste code. You do not paste a webhook secret.
+
+## Before you begin
+
+You need a Mercado Pago account that can receive Pix and a Gamecart store whose currency is BRL. Use a test access token while you try the integration, and a production token when you take real payments.
+
+## Get the access token
+
+1. Open your [Mercado Pago developers](https://www.mercadopago.com.br/developers) account.
+2. Open the application you want Gamecart to use.
+3. Copy the **Access token** for test or production.
+
+## Add it in Gamecart
+
+1. In the dashboard, open **Settings > Gateways**.
+2. Set **Country** to **Brasil**.
+3. Click **Configure** on Pix.
+4. Set **Provider** to **Mercado Pago**.
+5. Paste the access token.
+6. Turn on **Sandbox mode** only when the token is a test credential.
+7. Save, then enable Pix when you are ready for checkout.
+
+You cannot switch this Pix gateway to Efí while a Pix order is still pending with Mercado Pago.

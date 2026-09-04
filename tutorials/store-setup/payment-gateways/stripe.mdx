@@ -1,0 +1,28 @@
+---
+title: "Stripe"
+description: "Connect Stripe to a Gamecart store"
+---
+
+Gamecart charges the buyer with your Stripe secret key. After you save the key, Gamecart creates the webhook endpoint on your Stripe account. You do not paste a webhook secret.
+
+## Before you begin
+
+You need a Stripe account and a Gamecart store. Use a test secret key while you try the integration, and a live secret key when you are ready to take real payments.
+
+## Get the secret key
+
+1. Open the [Stripe Dashboard](https://dashboard.stripe.com).
+2. Go to **Developers > API keys**.
+3. Copy the **Secret key**. It starts with `sk_test_` or `sk_live_`.
+
+Do not use the publishable key (`pk_`).
+
+## Add it in Gamecart
+
+1. In the dashboard, open **Settings > Gateways**.
+2. Keep **Country** on **Global**.
+3. Click **Configure** on Stripe.
+4. Paste the secret key.
+5. Save, then enable Stripe when you are ready for checkout.
+
+If you later replace the secret key, Gamecart provisions a new webhook for the new key.
