@@ -63,6 +63,16 @@
             ]
           },
           {
+            "group": "Payment gateways",
+            "pages": [
+              "tutorials/store-setup/payment-gateways/stripe",
+              "tutorials/store-setup/payment-gateways/paypal",
+              "tutorials/store-setup/payment-gateways/mercado-pago",
+              "tutorials/store-setup/payment-gateways/pix",
+              "tutorials/store-setup/payment-gateways/efi"
+            ]
+          },
+          {
             "group": "Server delivery",
             "pages": [
               "tutorials/server-delivery/overview",

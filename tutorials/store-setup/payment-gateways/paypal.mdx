@@ -1,0 +1,26 @@
+---
+title: "PayPal"
+description: "Connect PayPal Payments Standard to a Gamecart store"
+---
+
+Gamecart sends the buyer to PayPal Payments Standard. You only need the email address of the PayPal account that receives the money. Gamecart does not use PayPal REST client IDs or a dashboard webhook secret.
+
+## Before you begin
+
+You need a PayPal account that can receive payments. Use the sandbox email while you test, and the live business email when you take real payments.
+
+## Get the receiver email
+
+1. Sign in to [PayPal](https://www.paypal.com).
+2. Copy the email address of the account that should receive store payments.
+
+That address is the `business` value PayPal expects on the checkout form.
+
+## Add it in Gamecart
+
+1. In the dashboard, open **Settings > Gateways**.
+2. Keep **Country** on **Global**.
+3. Click **Configure** on PayPal.
+4. Paste the receiver email.
+5. Turn on **Sandbox mode** only when the email belongs to a PayPal sandbox account.
+6. Save, then enable PayPal when you are ready for checkout.
