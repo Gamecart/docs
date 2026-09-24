@@ -22,7 +22,7 @@ Downloads are not available from this page yet. Continue only if you already hav
 module.exports = Object.freeze({
   serverToken: "paste-token-here",
   apiUrl: "https://api.gamecart.gg",
-  pollIntervalSeconds: 5,
+  pollIntervalSeconds: 15,
   debug: false,
 })
 ```
@@ -36,7 +36,7 @@ Copy the server token from **Integrations > Servers**. Keep it secret.
   />
 </Frame>
 
-Set `pollIntervalSeconds` to a value from `2` through `300`. Unless you use a loopback development endpoint, `apiUrl` must use HTTPS. With `debug=true`, the executor writes sanitized state and status logs. It does not log tokens, commands, player nicknames, HTTP bodies, buyer data, or order data.
+Set `pollIntervalSeconds` to a value from `5` through `600`. Unless you use a loopback development endpoint, `apiUrl` must use HTTPS. With `debug=true`, the executor writes sanitized state and status logs. It does not log tokens, commands, player nicknames, HTTP bodies, buyer data, or order data.
 
 ## Grant command permissions
 

@@ -56,11 +56,12 @@ Return a response quickly. After accepting the event, move slow work to an async
 | Event | When it is created |
 | --- | --- |
 | `order.created` | A checkout order is created and finalized with a redirect URL. |
-| `order.payment_approved` | Payment status changes to `APPROVED`. |
+| `order.payment_approved` | Payment status changes to `APPROVED` from any state other than `DISPUTE`. |
 | `order.payment_rejected` | Payment status changes to `REJECTED`. |
 | `order.payment_cancelled` | Payment status changes to `CANCELLED`. |
 | `order.payment_refunded` | Payment status changes to `REFUNDED`. |
 | `order.payment_dispute` | Payment status changes to `DISPUTE`. |
+| `order.payment_dispute_resolved` | A dispute closes in the store's favor and the payment returns to `APPROVED`. The order was already delivered on the original approval, so this event is an outcome, not a new sale: do not deliver again. |
 
 Manual-order approval events are not sent as seller webhooks.
 

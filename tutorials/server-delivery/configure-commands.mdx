@@ -53,13 +53,13 @@ Product commands tell Gamecart what to send to a server integration after a purc
 
 ## Use the recipient placeholder
 
-Use `{account_identifier}` where the command needs the buyer's delivery identity.
+Use `{identifier}` where the command needs the buyer's delivery identity.
 
 ```text
-lp user {account_identifier} parent add vip
+lp user {identifier} parent add vip
 ```
 
-`{account_identifier}` contains the recipient value collected at checkout. Its label and validation depend on your store's game configuration. Seller-created variables can collect other checkout information, but they cannot replace the delivery identifier.
+`{identifier}` contains the recipient value collected at checkout. Its label and validation depend on your store's game configuration. Seller-created variables can collect other checkout information, but they cannot replace the delivery identifier.
 
 <Tip>
   Use the placeholder help in **Commands** to review the available placeholders before saving a command.
