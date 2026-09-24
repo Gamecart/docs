@@ -63,6 +63,12 @@
             ]
           },
           {
+            "group": "Dashboard",
+            "pages": [
+              "tutorials/dashboard/push-notifications"
+            ]
+          },
+          {
             "group": "Payment gateways",
             "pages": [
               "tutorials/store-setup/payment-gateways/stripe",
