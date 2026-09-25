@@ -3,20 +3,18 @@ title: "Pix (Efí)"
 description: "Accept Pix through Efí on a Gamecart store"
 ---
 
-Pix is a Brazilian payment method. This page covers Pix through Efí. For Pix through Mercado Pago, see [Pix (Mercado Pago)](/tutorials/store-setup/payment-gateways/pix).
+Pix is a Brazilian instant payment method. This page covers Pix through Efí. For Pix through Mercado Pago, see [Pix (Mercado Pago)](/tutorials/store-setup/payment-gateways/pix).
 
-The store currency must be BRL. Gamecart talks to the Efí Pix API with mTLS. You upload a `.p12` certificate and an application that has the right API scopes.
+Pix only works on stores whose currency is BRL. Gamecart talks to the Efí Pix API over mTLS, so you upload the `.p12` certificate of an Efí application with the right scopes.
 
-## Before you begin
-
-You need an Efí account with Pix enabled and a Gamecart store whose currency is BRL. Create separate credentials for homologation and production. Homologation maps to **Sandbox mode** in Gamecart.
+Efí issues separate credentials for homologation and production. Homologation matches **Sandbox mode** in Gamecart.
 
 ## Create the Efí application
 
 1. Sign in to your [Efí](https://sejaefi.com.br) account.
 2. Open **API** and create an application.
 3. Enable the Pix API.
-4. Grant only these scopes (production and homologation):
+4. Grant these scopes, in production and in homologation:
 
 | Scope | Why Gamecart needs it |
 | --- | --- |
@@ -24,23 +22,33 @@ You need an Efí account with Pix enabled and a Gamecart store whose currency is
 | `cob.read` | Read the charge after a duplicate txid or during status checks |
 | `payloadlocation.read` | Load the QR image from `GET /v2/loc/{id}/qrcode` |
 
-A token missing `payloadlocation.read` fails with `insufficient_scope` when Gamecart asks for the QR code.
+Without `payloadlocation.read`, loading the QR code fails with `insufficient_scope`.
 
 5. Copy the **Client ID** and **Client secret** for the environment you will use.
 6. Download the `.p12` certificate issued for that same environment.
-7. Copy a Pix key that already belongs to the Efí account.
+7. Copy a Pix key that belongs to the Efí account.
 
 ## Add it in Gamecart
 
-1. In the dashboard, open **Settings > Gateways**.
-2. Set **Country** to **Brasil**.
-3. Click **Configure** on Pix.
-4. Set **Provider** to **Efí**.
-5. Paste the client ID, client secret, and Pix key.
-6. Upload the `.p12` file. Enter the certificate password only if Efí issued one.
-7. Turn on **Sandbox mode** only for homologation credentials.
-8. Save, then enable Pix when you are ready for checkout.
+1. Open **Settings > Gateways** and click **Add gateway**.
+2. Click **Add** on **Pix**.
+3. Set **Provider** to **Efí**.
+4. Paste the **Client ID**, **Client secret**, and **Pix key**.
+5. Select the `.p12` file under **P12 certificate**. Fill in **Certificate password (optional)** only if Efí gave the certificate a password.
+6. **Sandbox mode** starts on. Leave it on for homologation credentials and turn it off for production.
+7. Click **Save Configuration**.
 
-Use client ID, client secret, certificate, and sandbox flag from the same environment. Mixing production secrets with a homologation certificate fails authentication.
+<Frame caption="With Efí as the provider, the dialog asks for the credentials, the certificate, and lists the required scopes.">
+  <img
+    src="/images/tutorials/payments/efi-config.png"
+    alt="Configure Pix dialog with Efí selected and the credential fields, certificate, sandbox mode, and required scopes highlighted"
+  />
+</Frame>
 
-You cannot switch this Pix gateway to Mercado Pago while a Pix order is still pending with Efí.
+8. Turn on the Pix switch in the gateway list when you are ready to take payments.
+
+The client ID, client secret, certificate, and sandbox setting must all come from the same environment. A production secret with a homologation certificate fails authentication.
+
+After you save, Gamecart never shows the certificate again. The dialog only says whether one is configured, and you select a new file only to replace it.
+
+You can't switch this gateway to Mercado Pago while a Pix order is still pending with Efí.

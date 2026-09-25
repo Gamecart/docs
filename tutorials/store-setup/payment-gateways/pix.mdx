@@ -3,28 +3,32 @@ title: "Pix (Mercado Pago)"
 description: "Accept Pix through Mercado Pago on a Gamecart store"
 ---
 
-Pix is a Brazilian payment method. This page covers Pix through Mercado Pago. For Pix through Efí, see [Efí](/tutorials/store-setup/payment-gateways/efi).
+Pix is a Brazilian instant payment method. This page covers Pix through Mercado Pago. For Pix through Efí, see [Pix (Efí)](/tutorials/store-setup/payment-gateways/efi).
 
-The store currency must be BRL. Buyers pay on a Gamecart Pix page with a QR code and copy-and-paste code. You do not paste a webhook secret.
-
-## Before you begin
-
-You need a Mercado Pago account that can receive Pix and a Gamecart store whose currency is BRL. Use a test access token while you try the integration, and a production token when you take real payments.
+Pix only works on stores whose currency is BRL. Buyers pay on a Gamecart page that shows the QR code and the copy-and-paste code. You don't copy a webhook secret.
 
 ## Get the access token
 
-1. Open your [Mercado Pago developers](https://www.mercadopago.com.br/developers) account.
-2. Open the application you want Gamecart to use.
-3. Copy the **Access token** for test or production.
+1. Open [Mercado Pago Developers](https://www.mercadopago.com.br/developers).
+2. Open the application you want Gamecart to use. The Mercado Pago account must be able to receive Pix.
+3. Copy the **Access token**. Use the test token while you try the integration and the production token for real payments.
 
 ## Add it in Gamecart
 
-1. In the dashboard, open **Settings > Gateways**.
-2. Set **Country** to **Brasil**.
-3. Click **Configure** on Pix.
-4. Set **Provider** to **Mercado Pago**.
-5. Paste the access token.
-6. Turn on **Sandbox mode** only when the token is a test credential.
-7. Save, then enable Pix when you are ready for checkout.
+1. Open **Settings > Gateways** and click **Add gateway**.
+2. Click **Add** on **Pix**.
+3. Set **Provider** to **Mercado Pago**.
+4. Paste the token in **Access token**.
+5. **Sandbox mode** starts on. Leave it on for a test token and turn it off for a production token.
+6. Click **Save Configuration**.
 
-You cannot switch this Pix gateway to Efí while a Pix order is still pending with Mercado Pago.
+<Frame caption="Choose Mercado Pago as the provider, then paste the access token.">
+  <img
+    src="/images/tutorials/payments/pix-config.png"
+    alt="Configure Pix dialog with the provider, access token, and sandbox mode highlighted"
+  />
+</Frame>
+
+7. Turn on the Pix switch in the gateway list when you are ready to take payments.
+
+You can't switch this gateway to Efí while a Pix order is still pending with Mercado Pago.

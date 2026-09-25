@@ -1,43 +1,34 @@
 ---
 title: "Quickstart"
-description: "Launch the first version of your Gamecart store"
+description: "Go from a new account to a store that takes real orders"
 ---
 
-This guide takes you from a new Gamecart account to a storefront that can receive real orders. Use the linked tutorials when you need more detail about a step.
-
-## Prerequisites
-
-Before you begin, you need:
-
-- A Gamecart account.
-- Access to the dashboard at [dash.gamecart.gg](https://dash.gamecart.gg).
-- A game server or delivery workflow ready to receive purchase commands.
-- Payment provider credentials for the gateway you plan to enable.
-
-## Get started
+These five steps take you from a new account to your first order. Each one links to a tutorial with the details.
 
 <Steps>
   <Step title="Create your store">
-    Sign in to the dashboard and create a store with the name, subdomain, and currency you want to use for sales.
+    Sign up at [dash.gamecart.gg](https://dash.gamecart.gg), pick your game, and choose the store name, currency, and subdomain. You can't change the game or the currency later. [Create your store](/tutorials/store-setup/create-store).
   </Step>
 
-  <Step title="Add your first product">
-    Set the product price, delivery details, and the storefront information players need before they buy. If the product uses game delivery, [configure its delivery commands](/tutorials/server-delivery/configure-commands).
+  <Step title="Add products">
+    Create a category, then the products buyers can purchase, with price and description. [Add products](/tutorials/store-setup/products).
   </Step>
 
-  <Step title="Configure payments">
-    Enable a payment gateway that supports your region and store currency. Gamecart controls gateway availability and checkout routing.
+  <Step title="Set up payments">
+    Add at least one gateway in **Settings > Gateways** and turn it on. Pix and Mercado Pago need a BRL store. [Payment gateways](/tutorials/store-setup/payment-gateways).
   </Step>
 
-  <Step title="Connect delivery">
-    Follow the [server delivery overview](/tutorials/server-delivery/overview) to choose and configure the Gamecart server integration for your game server.
+  <Step title="Connect your game server">
+    Connect the server that receives purchases and add delivery commands to your products. [Server delivery](/tutorials/server-delivery/overview).
   </Step>
 
-  <Step title="Publish and test">
-    Open the storefront and place a controlled test order. [Check the delivery result](/tutorials/server-delivery/troubleshooting), then confirm the payment status and order details in the dashboard. To use your own hostname, [set up a custom domain](/tutorials/store-setup/custom-domain).
+  <Step title="Test an order">
+    Open your storefront, buy a product, and check that the payment is approved in **Sales > Orders** and the command ran on the server. [Test server delivery](/tutorials/server-delivery/troubleshooting).
   </Step>
 </Steps>
 
+When the store works, you can [use your own domain](/tutorials/store-setup/custom-domain) instead of the `gamecart.gg` address.
+
 <Tip>
-  Need help while setting up? Join the [Gamecart community](https://discord.gg/gamecart).
+  Stuck on a step? Ask in the [Gamecart community](https://discord.gg/gamecart).
 </Tip>

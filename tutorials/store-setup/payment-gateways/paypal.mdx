@@ -3,24 +3,27 @@ title: "PayPal"
 description: "Connect PayPal Payments Standard to a Gamecart store"
 ---
 
-Gamecart sends the buyer to PayPal Payments Standard. You only need the email address of the PayPal account that receives the money. Gamecart does not use PayPal REST client IDs or a dashboard webhook secret.
-
-## Before you begin
-
-You need a PayPal account that can receive payments. Use the sandbox email while you test, and the live business email when you take real payments.
+Gamecart sends buyers to PayPal Payments Standard. You only need the email address of the PayPal account that receives the money. Gamecart doesn't use PayPal REST client IDs or a webhook secret.
 
 ## Get the receiver email
 
-1. Sign in to [PayPal](https://www.paypal.com).
-2. Copy the email address of the account that should receive store payments.
+Use the email address of the PayPal account that should receive store payments. PayPal calls it the `business` value on the checkout form.
 
-That address is the `business` value PayPal expects on the checkout form.
+To test first, use the email of a PayPal sandbox account.
 
 ## Add it in Gamecart
 
-1. In the dashboard, open **Settings > Gateways**.
-2. Keep **Country** on **Global**.
-3. Click **Configure** on PayPal.
-4. Paste the receiver email.
-5. Turn on **Sandbox mode** only when the email belongs to a PayPal sandbox account.
-6. Save, then enable PayPal when you are ready for checkout.
+1. Open **Settings > Gateways** and click **Add gateway**.
+2. Click **Add** on **PayPal**.
+3. Paste the address in **Receiver email**.
+4. Turn on **Sandbox mode** only if the email belongs to a PayPal sandbox account.
+5. Click **Save Configuration**.
+
+<Frame caption="Enter the receiving email. Sandbox mode is only for PayPal sandbox accounts.">
+  <img
+    src="/images/tutorials/payments/paypal-config.png"
+    alt="Configure PayPal dialog with the receiver email field and the sandbox mode switch highlighted"
+  />
+</Frame>
+
+6. Turn on the PayPal switch in the gateway list when you are ready to take payments.

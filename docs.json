@@ -37,12 +37,6 @@
               "index",
               "quickstart"
             ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/custom-gateways"
-            ]
           }
         ]
       },
@@ -59,23 +53,21 @@
           {
             "group": "Store setup",
             "pages": [
+              "tutorials/store-setup/create-store",
+              "tutorials/store-setup/products",
               "tutorials/store-setup/custom-domain"
             ]
           },
           {
-            "group": "Dashboard",
+            "group": "Payments",
             "pages": [
-              "tutorials/dashboard/push-notifications"
-            ]
-          },
-          {
-            "group": "Payment gateways",
-            "pages": [
+              "tutorials/store-setup/payment-gateways",
               "tutorials/store-setup/payment-gateways/stripe",
               "tutorials/store-setup/payment-gateways/paypal",
               "tutorials/store-setup/payment-gateways/mercado-pago",
               "tutorials/store-setup/payment-gateways/pix",
-              "tutorials/store-setup/payment-gateways/efi"
+              "tutorials/store-setup/payment-gateways/efi",
+              "guides/custom-gateways"
             ]
           },
           {
@@ -89,6 +81,12 @@
               "tutorials/server-delivery/minecraft-rcon",
               "tutorials/server-delivery/configure-commands",
               "tutorials/server-delivery/troubleshooting"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "tutorials/dashboard/push-notifications"
             ]
           }
         ]

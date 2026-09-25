@@ -1,59 +1,94 @@
 ---
 title: "Tutorials"
-description: "Task-oriented guides for setting up and operating Gamecart"
+description: "Step-by-step guides for setting up and running a Gamecart store"
 ---
 
-These tutorials explain common store tasks, including setup, products, payments, storefront customization, server delivery, and day-to-day operations.
-
-<Tip>
-  Each tutorial starts with the dashboard workflow. It links to an API or webhook reference only when Gamecart has verified the public contract.
-</Tip>
-
-<Card title="Start with the quickstart" icon="rocket" href="/quickstart">
-  Create and publish your first Gamecart store.
-</Card>
+New to Gamecart? Follow the [quickstart](/quickstart) first. It links to these tutorials in order.
 
 ## Store setup
 
-<Card title="Set up a custom domain" icon="globe" href="/tutorials/store-setup/custom-domain">
-  Connect your own domain to a Gamecart storefront.
-</Card>
+<CardGroup cols={2}>
+  <Card title="Create your store" icon="store" href="/tutorials/store-setup/create-store">
+    Sign up, pick your game, and set up the store address.
+  </Card>
+  <Card title="Add products" icon="package" href="/tutorials/store-setup/products">
+    Create categories and the products buyers can purchase.
+  </Card>
+  <Card title="Set up a custom domain" icon="globe" href="/tutorials/store-setup/custom-domain">
+    Put the storefront on a domain you own.
+  </Card>
+</CardGroup>
+
+## Payments
+
+<CardGroup cols={2}>
+  <Card title="Payment gateways" icon="credit-card" href="/tutorials/store-setup/payment-gateways">
+    Add, enable, and order the payment methods buyers see.
+  </Card>
+  <Card title="Stripe" icon="credit-card" href="/tutorials/store-setup/payment-gateways/stripe">
+    Take cards and wallets in any currency.
+  </Card>
+  <Card title="PayPal" icon="wallet" href="/tutorials/store-setup/payment-gateways/paypal">
+    Take payments with a PayPal receiving account.
+  </Card>
+  <Card title="Mercado Pago" icon="wallet" href="/tutorials/store-setup/payment-gateways/mercado-pago">
+    Take Checkout Pro payments on BRL stores.
+  </Card>
+  <Card title="Pix (Mercado Pago)" icon="qr-code" href="/tutorials/store-setup/payment-gateways/pix">
+    Take Pix through Mercado Pago.
+  </Card>
+  <Card title="Pix (Efí)" icon="qr-code" href="/tutorials/store-setup/payment-gateways/efi">
+    Take Pix through Efí.
+  </Card>
+</CardGroup>
 
 ## Server delivery
 
-<Card title="Server delivery overview" icon="server" href="/tutorials/server-delivery/overview">
-  Choose a delivery method for your store's game and server runtime.
-</Card>
-<Card title="Connect a server" icon="plug" href="/tutorials/server-delivery/connect-server">
-  Create a server integration and protect its connection token.
-</Card>
-<Card title="Install the Minecraft executor" icon="blocks" href="/tutorials/server-delivery/minecraft">
-  Connect a Minecraft server or proxy to Gamecart command delivery.
-</Card>
-<Card title="Install the Hytale executor" icon="gamepad-2" href="/tutorials/server-delivery/hytale">
-  Connect a Hytale server to Gamecart command delivery.
-</Card>
-<Card title="Install the FiveM executor" icon="gamepad-2" href="/tutorials/server-delivery/fivem">
-  Connect a FiveM server resource to Gamecart command delivery.
-</Card>
-<Card title="Configure Minecraft RCON" icon="server" href="/tutorials/server-delivery/minecraft-rcon">
-  Connect Gamecart directly to a compatible Minecraft RCON server.
-</Card>
-<Card title="Configure product delivery commands" icon="terminal" href="/tutorials/server-delivery/configure-commands">
-  Add server commands and select the product events that trigger them.
-</Card>
-<Card title="Test and troubleshoot server delivery" icon="circle-help" href="/tutorials/server-delivery/troubleshooting">
-  Run a controlled test, understand command states, and resolve common delivery issues.
-</Card>
+<CardGroup cols={2}>
+  <Card title="Server delivery overview" icon="server" href="/tutorials/server-delivery/overview">
+    Choose how purchases reach your game server.
+  </Card>
+  <Card title="Connect a server" icon="plug" href="/tutorials/server-delivery/connect-server">
+    Create a server connection and keep its token safe.
+  </Card>
+  <Card title="Minecraft" icon="blocks" href="/tutorials/server-delivery/minecraft">
+    Install the executor on a Minecraft server or proxy.
+  </Card>
+  <Card title="Hytale" icon="gamepad-2" href="/tutorials/server-delivery/hytale">
+    Install the executor on a Hytale server.
+  </Card>
+  <Card title="FiveM" icon="gamepad-2" href="/tutorials/server-delivery/fivem">
+    Install the executor as a FiveM resource.
+  </Card>
+  <Card title="Minecraft RCON" icon="server" href="/tutorials/server-delivery/minecraft-rcon">
+    Deliver through RCON without installing anything.
+  </Card>
+  <Card title="Delivery commands" icon="terminal" href="/tutorials/server-delivery/configure-commands">
+    Choose the commands each product runs.
+  </Card>
+  <Card title="Test and troubleshoot" icon="circle-help" href="/tutorials/server-delivery/troubleshooting">
+    Check command states and fix failed deliveries.
+  </Card>
+</CardGroup>
 
-## More resources
+## Dashboard
 
-<Card title="Custom gateways" icon="credit-card" href="/guides/custom-gateways">
-  Advanced payment integration content for a store-owned provider.
-</Card>
-<Card title="API reference" icon="code" href="/api-reference/overview">
-  Use verified seller API contracts for external integrations.
-</Card>
-<Card title="Webhooks" icon="link" href="/webhooks/overview">
-  Receive signed order events from Gamecart.
-</Card>
+<CardGroup cols={2}>
+  <Card title="Push notifications" icon="bell" href="/tutorials/dashboard/push-notifications">
+    Get sale and login alerts on your phone or computer.
+  </Card>
+</CardGroup>
+
+## For developers
+
+<CardGroup cols={2}>
+  <Card title="Custom gateways" icon="code" href="/guides/custom-gateways">
+    Connect a payment provider you run yourself.
+  </Card>
+  <Card title="API reference" icon="code-2" href="/api-reference/overview">
+    Read orders from your own systems.
+  </Card>
+  <Card title="Webhooks" icon="radio-tower" href="/webhooks/overview">
+    Receive signed order events.
+  </Card>
+</CardGroup>

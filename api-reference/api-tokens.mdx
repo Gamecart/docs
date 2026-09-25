@@ -15,45 +15,44 @@ Gamecart stores the token hash and prefix, not the raw token. You can see the ra
 
 You need:
 
-- Access to the Gamecart dashboard.
-- A selected store.
-- Permission to manage integrations for that store.
-- A plan that includes API access.
-- A backend service that can keep secrets outside browser code.
+- The Enterprise plan. A store can have up to 20 tokens.
+- Permission to manage integrations for the store.
+- A backend service that keeps secrets out of browser code.
 
 ## Create a token in the dashboard
 
-<Steps>
-  <Step title="Open the integrations area">
-    In the dashboard, select your store and open **Integrations**.
-  </Step>
+1. Open **Integrations > API**.
+2. Click **Create token**.
+3. Enter a **Name** for the system that will use the token, such as `Order sync`.
+4. Under **Scopes**, keep only what the integration needs. **Orders read** comes checked.
+5. Click **Create token**.
 
-  <Step title="Open API tokens">
-    Choose **API** from the integrations menu.
-  </Step>
+<Frame caption="Name the token after the system that uses it and keep only the scopes it needs.">
+  <img
+    src="/images/tutorials/api/create-token.png"
+    alt="Create API token dialog with the name field, scopes, and Create token button highlighted"
+  />
+</Frame>
 
-  <Step title="Create a token">
-    Click **Create token**. Name it after the system that will use it, such as `Fulfillment service` or `Analytics sync`.
-  </Step>
+6. Copy the token from **Save this token now** and store it in your secret manager. Tokens start with `gci_`.
 
-  <Step title="Choose scopes">
-    Select only the scopes your integration needs. You can add access later if its requirements change.
-  </Step>
+The list shows only the token prefix, so you can tell tokens apart without exposing them.
 
-  <Step title="Copy the token">
-    After saving, copy the token shown by Gamecart and store it securely. Treat it like a password.
-  </Step>
-</Steps>
+<Frame caption="After you close the dialog, only the prefix stays visible.">
+  <img
+    src="/images/tutorials/api/token-list.png"
+    alt="API tokens list with the Create token button and the token prefix highlighted"
+  />
+</Frame>
 
 ## Choose scopes
 
 | Scope | Choose it when |
 | --- | --- |
-| `orders:read` | Your integration needs to list orders or fetch order details. |
-| `payments:read` | Your integration needs to check payment status for an order. |
+| `orders:read` | Your integration needs to list orders or fetch order details, including payment status. |
 | `orders:buyer:read` | Your integration needs buyer name, email, or account identifier. |
 
-If you are building delivery automation, start with `orders:read` and `payments:read`. Add `orders:buyer:read` only if the external system needs buyer identity fields.
+For delivery automation, `orders:read` is enough. Add `orders:buyer:read` only if the external system needs the buyer's name, email, or account identifier.
 
 ## Regenerate or delete a token
 

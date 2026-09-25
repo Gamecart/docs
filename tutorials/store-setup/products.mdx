@@ -1,0 +1,76 @@
+---
+title: "Add products"
+description: "Create categories and products in your store catalog"
+---
+
+Every product belongs to a category, so you create a category first. Both live on the same page: **Your store > Products**.
+
+Your plan sets how many categories and products a store can have.
+
+## Create a category
+
+1. In the sidebar, open **Your store > Products**.
+2. Click **Add**.
+3. Select **Category**.
+
+<Frame caption="Categories and products both start from the Add menu.">
+  <img
+    src="/images/tutorials/store-setup/catalog-add-menu.png"
+    alt="Products page with the sidebar entry, the Add button, and its Product and Category options highlighted"
+  />
+</Frame>
+
+4. Enter a **Name**, such as `Ranks`. The **Slug** fills in by itself and becomes part of the category URL.
+5. To place it inside another category, choose it under **Parent Category**. Otherwise, keep **None (top-level)**.
+6. Click **Create category**.
+
+<Frame caption="Name the category and choose where it sits in the catalog.">
+  <img
+    src="/images/tutorials/store-setup/category-form.png"
+    alt="Create category form with the name field, parent category, and Create category button highlighted"
+  />
+</Frame>
+
+Categories go two levels deep: a top-level category can have subcategories, but a subcategory can't have its own. **Hide category** removes a category from the store lists while keeping it reachable by direct link.
+
+## Create a product
+
+1. On **Your store > Products**, click **Add** and select **Product**.
+2. Enter a **Name** and choose the **Category**.
+3. Write the **Description** buyers see on the storefront.
+4. Set the **Price**. Leave **Duration** empty for a permanent product, or enter a number of days for one that expires, such as a 30-day rank.
+5. Optional: add an image. Use PNG, JPEG, or WebP up to 5 MB. 512×512 px works best.
+6. Click **Create product**.
+
+<Frame caption="Fill in the details and the price. Duration is optional.">
+  <img
+    src="/images/tutorials/store-setup/product-form.png"
+    alt="Create product form with the name and category, description, and price and duration fields highlighted"
+  />
+</Frame>
+
+Two switches under the price change how buyers pay:
+
+- **Buyer chooses the price** turns the price into the minimum and suggested amount. Buyers can pay that amount or more, and coupons never apply to this product.
+- **Accept coupons on this product** is on by default. Turn it off to keep a product out of every coupon.
+
+The **Commands** section sets what runs on your game server after a purchase. See [Configure product delivery commands](/tutorials/server-delivery/configure-commands).
+
+## Organize the catalog
+
+The products page lists every category with its products underneath.
+
+<Frame caption="The catalog groups products under their categories.">
+  <img
+    src="/images/tutorials/store-setup/products-list.png"
+    alt="Products page listing the Ranks and Crate keys categories with their products"
+  />
+</Frame>
+
+- Drag a category or product by its handle to change the order buyers see.
+- Use **Bulk actions** to change the price, visibility, or category of several products at once.
+- Use **Import** to bring an existing catalog into Gamecart.
+
+<Tip>
+  You can't delete a category that still has products or subcategories. Move or delete them first.
+</Tip>

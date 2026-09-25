@@ -9,7 +9,7 @@ Run a controlled test before you use server delivery for live purchases. Use a d
 
 <Steps>
   <Step title="Confirm the delivery connection">
-    For a plugin or script executor, run `gamecart status` from the server or proxy console. For RCON, confirm that the server integration’s RCON settings are correct.
+    For a plugin or script executor, run `gamecart status` from the server or proxy console. For RCON, check the host and port shown in **Integrations > Servers**.
   </Step>
 
   <Step title="Prepare test data">
@@ -21,7 +21,7 @@ Run a controlled test before you use server delivery for live purchases. Use a d
   </Step>
 
   <Step title="Follow the command">
-    Open **Commands** in the dashboard and watch the command status.
+    Open **Integrations > Commands** and watch the command status. Click **Refresh** to update the list.
   </Step>
 
   <Step title="Verify the result">
@@ -33,11 +33,11 @@ Run a controlled test before you use server delivery for live purchases. Use a d
 
 | Status | What it means |
 | --- | --- |
-| `SCHEDULED` | The command is queued for delivery. |
-| `PROCESSING` | The delivery method is handling the command. Wait for a final state before taking manual action. |
-| `EXECUTED` | Gamecart recorded the delivery as complete. Check the server when you need to confirm its effect. |
-| `FAILED` | The delivery path could not complete the command. Review the safe status or error shown by Gamecart, then check the target command. |
-| `UNCERTAIN` | An internal RCON delivery could not determine whether the command took effect. Check the server and use operator judgment before you resend it. |
+| **Scheduled** | The command is queued for delivery. |
+| **Processing** | The delivery method is handling the command. Wait for a final state before taking manual action. |
+| **Executed** | Gamecart recorded the delivery as complete. Check the server when you need to confirm its effect. |
+| **Failed** | The delivery path could not complete the command. Review the safe status or error shown by Gamecart, then check the target command. |
+| **Uncertain** | An internal RCON delivery could not determine whether the command took effect. Check the server and use operator judgment before you resend it. |
 
 <Frame caption="Use the Commands page to distinguish queued, failed, and completed delivery attempts.">
   <img
@@ -55,10 +55,10 @@ Run a controlled test before you use server delivery for live purchases. Use a d
 | Polling stops after a client error | Check credentials and configuration. Reload or restart after you correct them. |
 | Command remains processing | Confirm the executor and callback path before you take manual action. |
 | Command failed | Read the safe status or error shown by Gamecart and verify the target command manually. |
-| RCON is uncertain | Check the server for the command’s effect before you resend it. |
+| RCON is uncertain | Check the server for the command's effect before you resend it. |
 
 <Warning>
-  Resend creates a new delivery attempt and may duplicate a command that already ran. Stop any duplicate executor installations, inspect the server, and confirm the dashboard warning before you proceed.
+  To send a command again, open its row menu and select **Resend**. Resend creates a new delivery attempt and can repeat a command that already ran. Stop any duplicate executor installations and check the server before you click **Resend command**.
 </Warning>
 
 <Frame caption="Read and accept the duplicate-delivery risk only after you verify the original attempt.">

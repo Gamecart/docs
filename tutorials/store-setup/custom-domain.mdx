@@ -3,91 +3,79 @@ title: "Set up a custom domain"
 description: "Connect your own domain to a Gamecart storefront"
 ---
 
-You can use a domain you control for your Gamecart storefront. Once its DNS records are valid, Gamecart manages routing and TLS.
+Your storefront always has a `gamecart.gg` address. With a custom domain, buyers reach it at a hostname you own, such as `store.example.com`. Gamecart takes care of routing and HTTPS once the DNS records are in place.
 
-## Before you begin
+You need the Pro plan and access to your domain's DNS settings.
 
-You need:
+## Add the domain in the dashboard
 
-- A Gamecart plan that includes custom domains.
-- Access to your store's **Settings**.
-- Control of the domain's DNS records.
-- A hostname to use for your storefront, such as `store.example.com`.
+1. Open **Settings > Domain**.
+2. Turn on **Custom domain**.
+3. Enter the hostname, such as `store.example.com`. Leave out `https://`, paths, and trailing slashes.
+4. Click **Save**.
 
-## Add your domain in the dashboard
-
-1. In the dashboard, open **Settings > Domain**.
-2. Enable **Custom domain**.
-3. Enter your hostname, such as `store.example.com`.
-4. Save the change.
-
-Enter only the hostname. Do not include `https://`, a path, or a trailing slash.
-
-<Frame caption="Enable the custom domain, enter only the hostname, and save the change.">
+<Frame caption="Turn on the custom domain, enter the hostname, and save.">
   <img
     src="/images/tutorials/custom-domain/custom-domain-form.png"
-    alt="Custom domain settings with the enable control, hostname field, and save action highlighted"
+    alt="Domain settings with the custom domain switch, hostname field, and Save button highlighted"
   />
 </Frame>
 
 ## Create the DNS records
 
-After you save the hostname, the dashboard displays the DNS records for your store. Add those exact values at your DNS provider.
+After you save, the dashboard shows two records. Create both at your DNS provider, copying the values with the copy buttons.
 
-| Purpose | Type | Name | Value |
+| Type | Name | Value | What it does |
 | --- | --- | --- | --- |
-| Storefront routing | CNAME or provider-supported apex alias/flattening | The configured hostname | `dns.gamecart.gg` |
-| TLS validation and renewal | CNAME | `_acme-challenge.<hostname>` | The unique `*.dcv.cloudflare.com` value shown by Gamecart |
+| `CNAME` | Your hostname | `dns.gamecart.gg` | Sends storefront traffic to Gamecart |
+| `TXT` | `_gamecart.<your hostname>` | The token shown in the dashboard | Proves you own the domain |
 
-<Frame caption="Copy both DNS records exactly as the dashboard shows them.">
+<Frame caption="Copy both records exactly as the dashboard shows them.">
   <img
     src="/images/tutorials/custom-domain/dns-records.png"
-    alt="Custom domain DNS table with the routing and TLS validation records highlighted"
+    alt="DNS records table with the CNAME and TXT records and their copy buttons highlighted"
   />
 </Frame>
 
-If your DNS provider offers proxying, set both records to **DNS only**.
+If your DNS provider can proxy traffic, as Cloudflare does, set both records to **DNS only**.
 
 <Tip>
-  DNS providers format record names differently. Some expect the full hostname, while others append the zone automatically. Check the resulting record before you save it.
+  Providers format record names differently. Some expect the full name, such as `_gamecart.store.example.com`. Others add the domain for you, so you type only `_gamecart.store`. Check the saved record before you move on.
 </Tip>
 
-## Use a subdomain for the simplest setup
+To use the bare domain, such as `example.com`, your DNS provider must support CNAME flattening or an ALIAS record. If it doesn't, use a subdomain such as `store.example.com`.
 
-To use an apex domain such as `example.com`, your DNS provider must support CNAME flattening or an equivalent ALIAS record. Otherwise, use a subdomain such as `store.example.com`.
+## Wait for activation
 
-## Check activation
+The dashboard checks the records every 15 seconds while the page is open, and Gamecart keeps checking in the background. The **Status** column turns **Confirmed** for each record as it is found.
 
-After you add the records, Gamecart checks their status with the provider. This check runs periodically, so activation may take some time.
-
-- `PENDING` means the records or provider validation are still incomplete.
-- `ACTIVE` means routing and TLS are active.
-- `FAILED` means validation reached a permanent failure. Check your records before you select **Recheck** in **Settings > Domain**.
-
-<Frame caption="A pending domain keeps the required DNS records visible while Gamecart validates them.">
+<Frame caption="While the domain is pending, the records stay on screen with their status.">
   <img
     src="/images/tutorials/custom-domain/domain-pending.png"
-    alt="Custom domain settings with the pending status and DNS records highlighted"
+    alt="Domain settings with the Pending status, the Re-check button, and the DNS records highlighted"
   />
 </Frame>
 
-<Frame caption="An active status confirms that routing and TLS are ready for the storefront hostname.">
-  <img
-    src="/images/tutorials/custom-domain/domain-active.png"
-    alt="Custom domain settings with the active status and activation date highlighted"
-  />
-</Frame>
+| Status | Meaning |
+| --- | --- |
+| **Pending** | Gamecart hasn't found the `TXT` record yet. |
+| **Validating** | Ownership is confirmed, and Gamecart is setting up routing and HTTPS. |
+| **Active** | The storefront answers at your domain over HTTPS. The dashboard shows the date it went live. |
+| **Failed** | Setup stopped. Fix the records, then click **Re-check**. |
 
-## Troubleshoot DNS setup
+DNS changes can take a while to spread. Click **Re-check** to check again without waiting.
 
-If the domain does not become active:
+## If the domain doesn't activate
 
-- Check that the configured hostname and `_acme-challenge` record were not expanded into the wrong name by your DNS provider.
-- Confirm that both records are **DNS only** when your provider offers proxying.
-- Remove or correct stale, conflicting `A`, `AAAA`, or `CNAME` records for the same hostname.
-- For an apex domain, confirm that your provider supports flattening or an ALIAS-equivalent record.
-- Wait for DNS changes to propagate before selecting **Recheck**.
+- Look up the saved records and make sure the provider didn't add your domain twice, as in `_gamecart.store.example.com.example.com`.
+- Set both records to **DNS only** if your provider proxies traffic.
+- Remove old `A`, `AAAA`, or `CNAME` records on the same hostname.
+- For a bare domain, confirm the provider supports CNAME flattening or ALIAS records.
 
 <Warning>
-  Do not delete working DNS records until you understand the replacement path. A record that looks unrelated can still serve another website, email service, or integration.
+  Don't delete DNS records you don't recognize until you know what they do. They may serve another site, your email, or another integration.
 </Warning>
+
+## Remove the domain
+
+Turn off **Custom domain** and click **Save**, then confirm with **Remove domain**. The storefront stays available at its `gamecart.gg` address. To use the domain again later, you add it and create the records again.

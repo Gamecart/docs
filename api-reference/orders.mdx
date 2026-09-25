@@ -1,6 +1,6 @@
 ---
 title: "Orders API"
-description: "Read store orders and payment status with seller API tokens"
+description: "Read store orders and their payment status with seller API tokens"
 ---
 
 The read-only Orders API returns data for the store that owns the API token.
@@ -32,7 +32,9 @@ Response:
       "customGatewayId": null,
       "customGatewayName": null,
       "amount": 19.99,
-      "currency": "USD"
+      "currency": "USD",
+      "paidAt": "2026-06-27T13:05:00",
+      "cancelledAt": null
     }
   ],
   "totalItems": 1,
@@ -64,7 +66,9 @@ Response:
     "customGatewayId": null,
     "customGatewayName": null,
     "amount": 19.99,
-    "currency": "USD"
+    "currency": "USD",
+    "paidAt": "2026-06-27T13:05:00",
+    "cancelledAt": null
   },
   "buyer": {
     "name": "Alex Player",
@@ -77,32 +81,18 @@ Response:
       "quantity": 1,
       "productId": 101
     }
-  ]
+  ],
+  "itemsLine": "1x VIP Rank"
 }
 ```
 
 `buyer` is returned only when the token has `orders:buyer:read`. Without that scope, `buyer` is `null`.
 
-## Get payment status
+`itemsLine` sums up the items in one line, such as `2x VIP Rank, 1x Mythic Crate Key`. It is the same text the store emails use for `{{order_items_line}}`. Item names are returned as the seller wrote them, without HTML escaping.
 
-```http
-GET /v1/seller/orders/{orderId}/payment-status
-```
+## Payment status
 
-Required scope: `payments:read`.
-
-Response:
-
-```json
-{
-  "orderId": "GC-7K9Q2X",
-  "paymentStatus": "APPROVED",
-  "gatewayType": "STRIPE",
-  "customGatewayId": null,
-  "paidAt": "2026-06-27T13:05:00",
-  "cancelledAt": null
-}
-```
+Both endpoints return the payment status in `order.paymentStatus`. `paidAt` is set when the payment is approved. `cancelledAt` is set when the order is cancelled or refunded. Both are `null` until then.
 
 Payment statuses:
 

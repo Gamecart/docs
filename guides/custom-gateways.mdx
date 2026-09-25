@@ -5,13 +5,11 @@ description: "Connect a store-owned payment gateway to Gamecart checkout"
 
 With a custom gateway, your store can send checkout to a payment provider you control. Gamecart creates the order and calls your payment creation endpoint. It then redirects the buyer to your `paymentUrl` and waits for your signed callback.
 
-This page describes Gamecart's current custom gateway contract.
-
 ## Flow
 
 <Steps>
   <Step title="Configure the gateway">
-    Add the gateway in the dashboard and provide a public HTTPS payment creation URL. Gamecart generates the shared secret.
+    Create the gateway in the dashboard with the public HTTPS URL of your service. Gamecart generates the shared secret.
   </Step>
 
   <Step title="Buyer selects the gateway">
@@ -33,45 +31,34 @@ This page describes Gamecart's current custom gateway contract.
 
 ## Configure a custom gateway in the dashboard
 
-<Steps>
-  <Step title="Open payment settings">
-    In the dashboard, select your store and open **Settings**. Then open **Gateways**.
-  </Step>
+Custom gateways need the Enterprise plan. A store can have up to 10.
 
-  <Step title="Create a custom gateway">
-    In the custom gateways area, click **Create custom gateway**.
-  </Step>
+1. Open **Settings > Gateways** and click **Add gateway**.
+2. On the **Custom gateway** card, click **Create**.
+3. Enter a **Name**. Buyers see it at checkout, along with the optional **Description** and **Icon URL**.
+4. Paste the public HTTPS URL of your service in **Create payment URL**.
+5. Turn off **Enabled** if your endpoint isn't ready yet. The switch starts on.
+6. Click **Save**, then copy the shared secret from **Save this shared secret now** and store it securely. Gamecart shows it only once.
 
-  <Step title="Fill in display details">
-    Add the gateway name and sort order. You can also add a description and icon URL so buyers can identify the payment method at checkout.
-  </Step>
+<Frame caption="Name the gateway, paste the payment URL, and decide whether it starts enabled.">
+  <img
+    src="/images/tutorials/payments/custom-gateway-create.png"
+    alt="Create custom gateway dialog with the name, create payment URL, enabled switch, and Save button highlighted"
+  />
+</Frame>
 
-  <Step title="Enter the payment creation URL">
-    Paste the public HTTPS URL where your service receives Gamecart payment creation requests.
-  </Step>
+To test, enable the gateway, place a checkout order, and check that your service receives a signed `payment.create` request. Then send a callback for that order.
 
-  <Step title="Choose the timeout and enabled state">
-    Set a request timeout from `1000` through `30000` milliseconds. Leave the gateway disabled until your endpoint is ready.
-  </Step>
-
-  <Step title="Save and copy the shared secret">
-    After saving, copy the shared secret and store it securely. Gamecart shows it only once.
-  </Step>
-
-  <Step title="Enable and test checkout">
-    Enable the gateway, place a controlled checkout order, verify the signed `payment.create` request, and send a callback for the test order.
-  </Step>
-</Steps>
-
-Configuration fields:
+A custom gateway sits in the same list as the other gateways. Drag it to change where it appears at checkout. To replace the secret, edit the gateway and click **Rotate secret**.
 
 | Field | Rule |
 | --- | --- |
-| Name | Required, max `120` characters. |
-| Description | Optional, max `500` characters. |
-| Payment creation URL | Required, max `2048` characters, public HTTPS URL. |
-| Request timeout | Between `1000` and `30000` milliseconds. |
+| Name | Required, up to `120` characters. |
+| Description | Optional, up to `500` characters. |
+| Create payment URL | Required, up to `2048` characters, public HTTPS URL. |
 | Icon URL | Optional HTTPS URL. |
+
+Gamecart waits up to 10 seconds for your service to answer the `payment.create` request.
 
 ## Storefront checkout request
 
