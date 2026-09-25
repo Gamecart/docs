@@ -35,18 +35,7 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Tutorials",
-        "icon": "graduation-cap",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
+              "quickstart",
               "tutorials/overview"
             ]
           },
@@ -55,13 +44,27 @@
             "pages": [
               "tutorials/store-setup/create-store",
               "tutorials/store-setup/products",
-              "tutorials/store-setup/custom-domain"
+              "tutorials/store-setup/custom-domain",
+              "tutorials/store-setup/payment-gateways"
             ]
           },
           {
-            "group": "Payments",
+            "group": "Server delivery",
             "pages": [
-              "tutorials/store-setup/payment-gateways",
+              "tutorials/server-delivery/overview"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "tutorials/dashboard/push-notifications"
+            ]
+          },
+          {
+            "group": "Payment gateway guides",
+            "hidden": true,
+            "searchable": true,
+            "pages": [
               "tutorials/store-setup/payment-gateways/stripe",
               "tutorials/store-setup/payment-gateways/paypal",
               "tutorials/store-setup/payment-gateways/mercado-pago",
@@ -71,9 +74,10 @@
             ]
           },
           {
-            "group": "Server delivery",
+            "group": "Server delivery guides",
+            "hidden": true,
+            "searchable": true,
             "pages": [
-              "tutorials/server-delivery/overview",
               "tutorials/server-delivery/connect-server",
               "tutorials/server-delivery/minecraft",
               "tutorials/server-delivery/hytale",
@@ -81,12 +85,6 @@
               "tutorials/server-delivery/minecraft-rcon",
               "tutorials/server-delivery/configure-commands",
               "tutorials/server-delivery/troubleshooting"
-            ]
-          },
-          {
-            "group": "Dashboard",
-            "pages": [
-              "tutorials/dashboard/push-notifications"
             ]
           }
         ]
