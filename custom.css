@@ -1,0 +1,10 @@
+/* Keep sidebar navigation rows compact while preserving Mintlify's layout. */
+#sidebar a[href] {
+  min-height: 2rem;
+  padding-block: 0.35rem !important;
+}
+
+/* Separate the sidebar from the page content in both color modes. */
+#sidebar {
+  border-right: 1px solid rgba(128, 128, 128, 0.22);
+}
