@@ -94,12 +94,20 @@
         "icon": "code-2",
         "groups": [
           {
-            "group": "API reference",
+            "group": "API documentation",
             "pages": [
               "api-reference/overview",
+              "api-reference/authentication",
               "api-reference/api-tokens",
-              "api-reference/orders"
+              "api-reference/rate-limits",
+              "api-reference/errors",
+              "api-reference/pagination",
+              "api-reference/changelog"
             ]
+          },
+          {
+            "group": "Endpoints",
+            "openapi": "api-reference/openapi/seller-v1.yaml"
           }
         ]
       },
@@ -111,7 +119,8 @@
             "group": "Webhooks",
             "pages": [
               "webhooks/overview",
-              "webhooks/signatures"
+              "webhooks/signatures",
+              "webhooks/testing-and-delivery-logs"
             ]
           }
         ]
@@ -161,5 +170,21 @@
       "cursor",
       "vscode"
     ]
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": [
+        "curl",
+        "python",
+        "javascript",
+        "php",
+        "go",
+        "java",
+        "ruby"
+      ]
+    }
   }
 }

@@ -45,3 +45,4 @@
 - Do not document internal-only endpoints, admin-only implementation details, secrets, callback tokens, provider credentials, or operational runbooks meant only for maintainers.
 - Do not invent API or webhook payloads from memory. Check the backend REST resources, DTOs, generated OpenAPI, and relevant `.docs` contracts first.
 - Keep API and webhook placeholders explicit until the verified contract is ready.
+- `api-reference/openapi/seller-v1.yaml` is a copy of the backend's generated contract, `seller-api-v1.yaml` in the workspace repo, produced by `gradlew updatePublicOpenApi`. Never edit it here: change the backend, regenerate, and copy the file over. The endpoint pages under **API reference** come from it.

@@ -1,0 +1,62 @@
+---
+title: "Errors"
+icon: "triangle-alert"
+description: "Problem details and the error codes of the Seller API"
+---
+
+Errors use problem details ([RFC 9457](https://www.rfc-editor.org/rfc/rfc9457)) with `Content-Type: application/problem+json`:
+
+```json
+{
+  "type": "about:blank",
+  "title": "Not Found",
+  "status": 404,
+  "detail": "Order not found.",
+  "instance": "/v1/seller/orders/GC-NOPE",
+  "code": "ORDER_NOT_FOUND",
+  "traceId": "ede70d1d-66d8-4af7-9a4e-a8775b047380"
+}
+```
+
+Decide what to do from `status` and `code`. `detail` is text for people and changes with the language of the request. Quote `traceId` when you contact support.
+
+Some problems carry extra members:
+
+| Member | Present on |
+| --- | --- |
+| `errors` | `VALIDATION_ERROR`, with one entry per invalid field: `field`, `code`, and `message`. |
+| `requiredScope` | `INTEGRATION_SCOPE_MISSING`, with every scope the operation needs. |
+| `retryAfterSeconds` | `RATE_LIMIT_ERROR`, with the same value as the `Retry-After` header. |
+
+A resource that belongs to another store answers exactly like one that does not exist.
+
+## Codes
+
+| Status | Code | Meaning |
+| --- | --- | --- |
+| `400` | `VALIDATION_ERROR` | A field in the body or query is missing or invalid. |
+| `400` | `BAD_REQUEST` | The body is not valid JSON or a value has the wrong type. |
+| `400` | `INVALID_REQUEST` | A value is not accepted, such as an unknown webhook event name. |
+| `400` | `GENERIC_ERROR` | The request breaks a rule of the resource, such as editing the identifier of an order whose delivery identity is the e-mail. |
+| `400` | `COMMAND_PULL_INVALID` | The pull or fail body is empty or not valid JSON, or the fail reason is empty. |
+| `400` | `COMMAND_PRESENCE_IDENTIFIER_INVALID` | An online identifier is longer than 255 characters. |
+| `401` | `INVALID_INTEGRATION_TOKEN` | The token is missing or invalid. |
+| `402` | `PLAN_FEATURE_REQUIRED` | The store's plan does not include API access or webhooks. |
+| `403` | `INTEGRATION_SCOPE_MISSING` | The token lacks a scope the operation needs. |
+| `404` | `ORDER_NOT_FOUND` | No order with that id in the store. |
+| `404` | `ORDER_NOTE_NOT_FOUND` | No note with that id on that order. |
+| `404` | `QUEUED_COMMAND_NOT_FOUND` | No queued command with that id in the store. |
+| `404` | `SERVER_NOT_FOUND` | No server with that id in the store. |
+| `404` | `WEBHOOK_ENDPOINT_NOT_FOUND` | No webhook endpoint with that id in the store. |
+| `404` | `WEBHOOK_DELIVERY_NOT_FOUND` | No delivery with that id on that endpoint. |
+| `409` | `ORDER_STATUS_CONFLICT` | The order's payment status does not allow the action, such as cancelling an approved order. |
+| `409` | `QUEUED_COMMAND_STATUS_CONFLICT` | The command's status does not allow the change. Only `SCHEDULED` commands can be edited; only `SCHEDULED` and `FAILED` commands can be deleted. |
+| `409` | `COMMAND_RETRY_CONFLICT` | The command can no longer be rebuilt from its order. |
+| `409` | `COMMAND_CALLBACK_CONFLICT` | Done or fail for a command that this server is not processing. |
+| `409` | `SERVER_TYPE_NOT_POLLABLE` | The server uses RCON, so it has no connector token and does not pull commands. |
+| `409` | `WEBHOOK_ENDPOINT_DISABLED` | The endpoint is disabled, so it cannot receive a test event. |
+| `409` | `PLAN_LIMIT_EXCEEDED` | The store reached the plan limit for servers or webhook endpoints. |
+| `413` | `COMMAND_PULL_TOO_LARGE` | The pull body is larger than 256 KiB or has more than 4,096 online identifiers. |
+| `429` | `RATE_LIMIT_ERROR` | The rate limit for the route was reached. See [Rate limits](/api-reference/rate-limits). |
+
+Retry `429` after `Retry-After`, and `5xx` with backoff. Other `4xx` codes will fail the same way until the request changes.

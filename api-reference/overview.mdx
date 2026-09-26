@@ -1,91 +1,56 @@
 ---
-title: "API reference"
+title: "API overview"
 icon: "code-2"
-description: "Verified seller-facing API contracts for Gamecart integrations"
+description: "Base URL, data format, and the resources of the Gamecart Seller API"
 ---
 
-Gamecart provides a seller API for external integrations, signed webhooks, and custom gateway contracts.
+The Seller API lets your backend read and manage one store: its orders, the delivery command queue, game servers, and webhook endpoints. Every request is authenticated with an API token that belongs to that store.
 
-The contracts on these pages match the current backend REST resources and DTOs. Older drafts and examples from support conversations may no longer match the API.
+The endpoint pages in this section are generated from the same contract the backend enforces. If a page and a response ever disagree, the response is right and the page is a bug.
 
-## Base URLs
-
-Use the production API origin for external calls:
+## Base URL
 
 ```text
-https://api.gamecart.gg
+https://api.gamecart.gg/v1/seller
 ```
 
-Storefront checkout helpers use this scoped base:
+Send requests over HTTPS only. The API is available on the Enterprise plan.
 
-```text
-https://api.gamecart.gg/v1/stores
-```
+## Data format
 
-Create API tokens, webhook endpoints, and gateway settings in the Gamecart dashboard. These pages show raw HTTP contracts only for requests your integration sends or receives.
+Requests and responses use JSON with UTF-8 encoding. Send `Content-Type: application/json` on requests that have a body.
 
-## Authentication modes
-
-| Surface | Auth | Main use |
-| --- | --- | --- |
-| Seller API | `Authorization: Bearer <api_token>` | Read store orders and payment status from your integration. |
-| Outbound webhooks | `Gamecart-Signature`, `Gamecart-Event-Id`, `Gamecart-Event-Type` | Receive Gamecart order events on your endpoint. |
-| Custom gateway requests | `Gamecart-Signature`, `Gamecart-Event-Id`, `Gamecart-Event-Type` | Verify payment creation requests sent by Gamecart. |
-| Custom gateway callback | `Gamecart-Signature` and `Gamecart-Event-Id` | Confirm a custom gateway payment back to Gamecart. |
-
-## Pagination
-
-Seller API list endpoints return the shared paged response shape:
-
-```json
-{
-  "items": [],
-  "totalItems": 0,
-  "currentPage": 0,
-  "totalPages": 0,
-  "pageSize": 20
-}
-```
-
-Supported query parameters are `page` and `size`. Page indexes start at `0`. Current list endpoints clamp `size` to a maximum of `100`.
-
-## Error format
-
-API errors use Problem Details:
-
-```json
-{
-  "type": "https://gamecart.gg/problems/INVALID_INTEGRATION_TOKEN",
-  "title": "Unauthorized",
-  "status": 401,
-  "detail": "The integration API token is missing or invalid.",
-  "code": "INVALID_INTEGRATION_TOKEN",
-  "traceId": "..."
-}
-```
-
-The backend localizes `detail`. Use the HTTP status and `code` in your integration logic instead of matching translated text.
-
-## Scopes
-
-API tokens use explicit scopes:
-
-| Scope | Allows |
+| Data | Format |
 | --- | --- |
-| `orders:read` | List orders and read order details, including payment status. |
-| `orders:buyer:read` | Include buyer name, email, and account identifier in order detail responses. |
+| Timestamps | ISO 8601 in UTC, such as `2026-09-25T13:05:00Z`. Query filters such as `from` and `to` take the same format. |
+| Money | Decimal numbers with two places, such as `19.90`. The `currency` field next to them holds the ISO 4217 code. |
+| Order id | The public order id, such as `GC-7K9Q2X`. Use it in every order route. |
+| Order number | `number` is the sequential number the seller sees in the dashboard. It is informational; never build routes with it. |
+| Other ids | Servers and webhook endpoints use UUIDs. Queued commands and notes use numeric ids. |
+
+### Omitted fields
+
+A field that does not apply, or that your token has no scope to read, is left out of the response instead of being sent as `null`. For example, an order read without `orders:buyer:read` has no `buyer` field, and an order that never used a custom gateway has no `customGateway` field. Write your client so a missing field and a `null` field mean the same thing.
+
+## Resources
 
 <CardGroup cols={2}>
-  <Card title="API tokens" icon="key-round" href="/api-reference/api-tokens">
-    Create tokens from the dashboard, choose scopes, and copy the token safely.
+  <Card title="Authentication" icon="key-round" href="/api-reference/authentication">
+    Send the token and pick the scopes each integration needs.
   </Card>
-  <Card title="Orders API" icon="shopping-bag" href="/api-reference/orders">
-    Read orders and payment status with a seller API token.
+  <Card title="Rate limits" icon="gauge" href="/api-reference/rate-limits">
+    Per-token limits, rate headers, and the executor cadence.
+  </Card>
+  <Card title="Errors" icon="triangle-alert" href="/api-reference/errors">
+    Problem details and every error code the API can return.
+  </Card>
+  <Card title="Pagination" icon="list" href="/api-reference/pagination">
+    Page through orders, commands, endpoints, and deliveries.
   </Card>
   <Card title="Webhooks" icon="radio-tower" href="/webhooks/overview">
-    Configure webhook endpoints in the dashboard and receive signed order events.
+    Receive signed order events instead of polling.
   </Card>
-  <Card title="Custom gateways" icon="credit-card" href="/guides/custom-gateways">
-    Connect a store-owned payment gateway to checkout.
+  <Card title="Changelog" icon="history" href="/api-reference/changelog">
+    What changed in the API and when.
   </Card>
 </CardGroup>

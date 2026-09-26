@@ -1,15 +1,15 @@
 ---
 title: "API tokens"
 icon: "key-round"
-description: "Create seller API tokens from the Gamecart dashboard"
+description: "Create Seller API tokens from the Gamecart dashboard"
 ---
 
-API tokens authenticate server-to-server requests to `/v1/seller/*`. Use one when your backend needs to read Gamecart orders or payment status.
+API tokens authenticate server-to-server requests to `/v1/seller`. Create one for each system that talks to your store.
 
-Gamecart stores the token hash and prefix, not the raw token. You can see the raw value only when you create or rotate it.
+Gamecart stores only a hash and the prefix of each token. You see the full value once, when you create or regenerate it.
 
 <Warning>
-  Copy the raw token immediately and store it in your secret manager. Gamecart cannot show the same token again.
+  Copy the token right away and store it in your secret manager. Gamecart cannot show it again.
 </Warning>
 
 ## Before you begin
@@ -24,20 +24,12 @@ You need:
 
 1. Open **Integrations > API**.
 2. Click **Create token**.
-3. Enter a **Name** for the system that will use the token, such as `Order sync`.
-4. Under **Scopes**, keep only what the integration needs. **Orders read** comes checked.
+3. Enter a **Name** for the system that will use the token, such as `Order sync`. The name shows up on the order notes that the token leaves.
+4. Under **Scopes**, check what the integration needs. Scopes are grouped by resource, with **Read** and **Write** columns. **Orders read** comes checked.
 5. Click **Create token**.
-
-<Frame caption="Name the token after the system that uses it and keep only the scopes it needs.">
-  <img
-    src="/images/tutorials/api/create-token.png"
-    alt="Create API token dialog with the name field, scopes, and Create token button highlighted"
-  />
-</Frame>
-
 6. Copy the token from **Save this token now** and store it in your secret manager. Tokens start with `gci_`.
 
-The list shows only the token prefix, so you can tell tokens apart without exposing them.
+The list shows only the token prefix and the scopes grouped by resource, so you can tell tokens apart without exposing them.
 
 <Frame caption="After you close the dialog, only the prefix stays visible.">
   <img
@@ -48,22 +40,28 @@ The list shows only the token prefix, so you can tell tokens apart without expos
 
 ## Choose scopes
 
-| Scope | Choose it when |
-| --- | --- |
-| `orders:read` | Your integration needs to list orders or fetch order details, including payment status. |
-| `orders:buyer:read` | Your integration needs buyer name, email, or account identifier. |
+Checking a write scope also checks the read scope of the same resource. You can uncheck it, and the dialog warns you, because write scopes never include read access.
 
-For delivery automation, `orders:read` is enough. Add `orders:buyer:read` only if the external system needs the buyer's name, email, or account identifier.
+| If the integration needs to | Check |
+| --- | --- |
+| Sync orders into another system | **Orders read**. Add **Buyer data read** if the other system needs the buyer's name, e-mail, or billing details. |
+| Confirm payments from an outside source | **Orders read** and **Approve orders**. |
+| Add notes or resend delivery | **Orders read** and **Orders write**. |
+| Run delivery commands from your own executor | **Execute commands**. Add **Commands read** to inspect the queue. |
+| Provision game servers | **Servers read** and **Servers write**. |
+| Manage webhooks as code | **Webhooks read** and **Webhooks write**. |
+
+The full list of scopes and what each allows is on [Authentication](/api-reference/authentication#scopes).
 
 ## Regenerate or delete a token
 
-Use **Regenerate token** if a token may have leaked or your secret policy requires a new value. The current secret stops working immediately, and Gamecart shows the replacement once.
+Use **Regenerate token** if a token may have leaked or your secret policy requires a new value. The current value stops working immediately, and Gamecart shows the replacement once. The name and scopes stay the same.
 
-Use **Delete token** when you retire an integration or no longer trust it. Deletion is permanent, and the token stops working immediately.
+Use **Delete token** when you retire an integration or no longer trust it. Deletion is permanent, and the token stops working immediately. Notes it left on orders keep its name.
 
 ## Use a token from your backend
 
-Pass the raw token as a Bearer token:
+Pass the token as a Bearer token:
 
 ```http
 GET /v1/seller/orders
@@ -72,12 +70,10 @@ Authorization: Bearer gci_...
 
 Never expose the token in storefront JavaScript, public repositories, logs, screenshots, or support messages.
 
-Gamecart applies rate limits per token and endpoint. The current default is `120` requests per minute.
-
 ## Recommended setup
 
-- Create one token per external system.
+- Create one token per external system. Each token has its own [rate limit](/api-reference/rate-limits).
 - Name tokens after the system, not a person.
-- Keep scopes minimal.
-- Regenerate tokens after team member offboarding or suspected leakage.
+- Keep scopes minimal, and grant **Approve orders** only to systems that confirm payments.
+- Regenerate tokens after a team member leaves or when you suspect a leak.
 - Delete unused tokens instead of keeping them as backups.

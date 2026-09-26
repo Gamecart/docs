@@ -1,10 +1,10 @@
 ---
 title: "Webhooks"
 icon: "webhook"
-description: "Configure signed order events from the Gamecart dashboard"
+description: "Receive signed order events from Gamecart on your own endpoint"
 ---
 
-Gamecart sends order events to an HTTPS endpoint that you control. Each webhook is an outbound notification to your application.
+Gamecart sends order events to an HTTPS endpoint that you control. Each webhook is an outbound notification to your application, signed with a secret only you and Gamecart know.
 
 ## Before you begin
 
@@ -25,7 +25,7 @@ Answer each request quickly. Move slow work to a background job after you accept
 4. Paste your public HTTPS URL in **Endpoint URL**. Gamecart checks the URL before it saves the endpoint.
 5. Under **Events**, pick the events your application needs. **Payment approved** comes checked.
 6. Click **Create endpoint**, then copy the secret from **Save this webhook secret now**. Gamecart shows it only once. Secrets start with `gcwhsec_`.
-7. Place a test order and confirm that your endpoint receives the event and verifies the signature.
+7. Open the endpoint's row menu and select **Send test** to confirm that your endpoint receives the event and verifies the signature. See [Testing and delivery logs](/webhooks/testing-and-delivery-logs).
 
 <Frame caption="Choose the HTTPS endpoint and only the events your application uses.">
   <img
@@ -35,6 +35,8 @@ Answer each request quickly. Move slow work to a background job after you accept
 </Frame>
 
 Turn off **Enabled** to pause deliveries to an endpoint without deleting it.
+
+You can also manage endpoints through the API with the `webhooks:read` and `webhooks:write` scopes. The endpoint pages under **API reference** list every operation.
 
 ## Event types
 
@@ -49,28 +51,73 @@ Turn off **Enabled** to pause deliveries to an endpoint without deleting it.
 
 When a dispute closes in the store's favor, Gamecart sends `order.payment_approved` again with the same `eventId` as the original approval. The order was already delivered at that first approval, so don't deliver it again. Deduplicating by `eventId` handles this.
 
-Manual-order approval events are not sent as seller webhooks.
+Manual orders created in the dashboard do not send seller webhooks.
+
+### Diagnostic event
+
+| Event | When it is created |
+| --- | --- |
+| `webhook.test` | You select **Send test** in the dashboard or call the test operation of the API. |
+
+`webhook.test` is not an event you subscribe to. It goes to the endpoint you test, whatever events that endpoint listens to, and carries a fixed sample order with the id `GC-TEST0000`.
 
 ## Delivery payload
 
-Gamecart sends JSON with this shape:
+Every event has the same envelope. The order sits under `data.order` and is the same object that `GET /v1/seller/orders/{orderId}` returns, always with the `buyer`:
 
 ```json
 {
   "eventId": "order.payment_approved:GC-7K9Q2X",
   "eventType": "order.payment_approved",
-  "createdAt": "2026-06-27T13:05:00",
-  "order": {
-    "orderId": "GC-7K9Q2X",
-    "paymentStatus": "APPROVED",
-    "gatewayType": "STRIPE",
-    "amount": 19.99,
-    "currency": "USD"
+  "createdAt": "2026-09-25T13:05:00.412Z",
+  "data": {
+    "order": {
+      "orderId": "GC-7K9Q2X",
+      "number": 105,
+      "createdAt": "2026-09-25T13:04:12Z",
+      "paidAt": "2026-09-25T13:05:00Z",
+      "paymentStatus": "APPROVED",
+      "gatewayType": "STRIPE",
+      "externalPaymentId": "pi_3Q1x2y3z",
+      "currency": "USD",
+      "subtotal": 20.00,
+      "totalDiscount": 2.00,
+      "total": 18.00,
+      "manualAdjustment": 0.00,
+      "deliveryStatus": "PENDING",
+      "items": [
+        {
+          "id": 3121,
+          "productId": 77,
+          "name": "VIP rank",
+          "unitPrice": 20.00,
+          "effectivePrice": 20.00,
+          "quantity": 1,
+          "variables": []
+        }
+      ],
+      "coupons": [{ "code": "SAVE10", "discountValue": 2.00, "fixedValue": true }],
+      "discounts": [],
+      "checkoutFields": [],
+      "buyer": {
+        "name": "Steve",
+        "email": "steve@example.com",
+        "accountIdentifier": "Steve",
+        "deliveryIdentityMode": "CHECKOUT_FIELD",
+        "locale": "en-US"
+      },
+      "publicOrderUrl": "https://play.example.com/order/GC-7K9Q2X"
+    }
   }
 }
 ```
 
-`eventId` is stable for the order and event type. Use it as your idempotency key.
+- `eventId` is stable for the order and event type. Use it as your idempotency key.
+- `createdAt` is when Gamecart created the event, in UTC.
+- Fields that do not apply are left out, as in API responses.
+- `number` is the order number the seller sees. The webhook goes only to endpoints the seller configured, so it is safe to use there.
+
+The payload holds the buyer's personal data. Keep it only as long as your application needs it.
 
 ## Delivery headers
 
@@ -79,31 +126,18 @@ Content-Type: application/json
 User-Agent: Gamecart-Webhooks/1.0
 Gamecart-Event-Id: order.payment_approved:GC-7K9Q2X
 Gamecart-Event-Type: order.payment_approved
-Gamecart-Signature: t=1782565500,v1=<hex_hmac_sha256>
+Gamecart-Signature: t=1790341500,v1=<hex_hmac_sha256>
 ```
 
 See [Webhook signatures](/webhooks/signatures) for verification.
 
-## Review delivery logs
+## Retries
 
-In the endpoint's row menu, select **View deliveries**. The same menu edits the endpoint, rotates its secret, and deletes it.
+Gamecart treats any `2xx` response as delivered.
 
-<Frame caption="Every endpoint action lives in its row menu.">
-  <img
-    src="/images/tutorials/webhooks/row-menu.png"
-    alt="Webhooks list with the row menu open and its actions highlighted"
-  />
-</Frame>
+For a non-`2xx` response, network failure, or invalid target, Gamecart records the failure and makes up to `5` attempts. After each failure, the retry delay is `attemptCount * 5` minutes. Gamecart does not follow redirects.
 
-Each entry shows the event, status, attempt count, and latest error. Click **Retry** to send an entry again.
-
-<Frame caption="A delivery that got a non-2xx answer stays pending until the next retry.">
-  <img
-    src="/images/tutorials/webhooks/deliveries.png"
-    alt="Webhook deliveries dialog with the status, attempts, last error, and Retry button highlighted"
-  />
-</Frame>
-
+If your endpoint receives the same `eventId` more than once, process it once and return `2xx` for later duplicates.
 
 Delivery statuses are:
 
@@ -113,10 +147,6 @@ Delivery statuses are:
 | `SENT` | Your endpoint returned a `2xx` response. |
 | `FAILED` | Gamecart exhausted all retry attempts. |
 
-## Retries
+## Retention
 
-Gamecart treats any `2xx` response as delivered.
-
-For a non-`2xx` response, network failure, or invalid target, Gamecart records the failure and makes up to `5` attempts. After each failure, the retry delay is `attemptCount * 5` minutes.
-
-If your endpoint receives the same `eventId` more than once, process it once and return `2xx` for later duplicates.
+Gamecart deletes `SENT` and `FAILED` deliveries 30 days after they were created. Pending deliveries are kept until they finish.

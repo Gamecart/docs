@@ -1,0 +1,28 @@
+---
+title: "Pagination"
+icon: "list"
+description: "Page through list responses of the Seller API"
+---
+
+List endpoints for orders, queued commands, webhook endpoints, and webhook deliveries return pages:
+
+```json
+{
+  "items": [],
+  "totalItems": 42,
+  "currentPage": 0,
+  "totalPages": 3,
+  "pageSize": 20
+}
+```
+
+| Query parameter | Default | Rules |
+| --- | --- | --- |
+| `page` | `0` | Pages start at `0`. A negative value reads page `0`. |
+| `size` | `20` | Between `1` and `100`. Values outside that range are clamped. |
+
+Lists are sorted newest first. To walk a list, request `page=0`, then increase `page` until it reaches `totalPages`.
+
+New records can arrive while you page, which shifts older ones to later pages. When you sync orders, filter by `from` with the creation time of the last order you stored instead of relying on page numbers.
+
+The servers list and the notes and commands of one order are short and come as plain arrays, without pages.

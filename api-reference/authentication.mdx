@@ -1,0 +1,58 @@
+---
+title: "Authentication"
+icon: "lock"
+description: "Authenticate Seller API requests with an API token and its scopes"
+---
+
+Every Seller API request carries an API token in the `Authorization` header:
+
+```http
+GET /v1/seller/orders
+Authorization: Bearer gci_...
+```
+
+Tokens start with `gci_`. Create them in the dashboard under **Integrations > API**; see [API tokens](/api-reference/api-tokens) for the steps.
+
+A token belongs to one store, so it never needs a store id. Keep tokens on your backend. Never put one in storefront JavaScript, a public repository, a log, or a screenshot.
+
+## When authentication fails
+
+| Status | Code | Cause |
+| --- | --- | --- |
+| `401` | `INVALID_INTEGRATION_TOKEN` | The header is missing, the token is wrong, or the token was deleted or regenerated. |
+| `402` | `PLAN_FEATURE_REQUIRED` | The store's plan no longer includes API access. |
+| `403` | `INTEGRATION_SCOPE_MISSING` | The token is valid but lacks a scope the operation needs. `requiredScope` lists all of them. |
+
+## Scopes
+
+Each operation declares the scopes it needs, and a token must have all of them. Write scopes never include read access: a token with only `orders:write` can add a note but cannot list orders. The dashboard checks the read scope for you when you pick a write scope; keep it unless the integration really only writes.
+
+| Scope | Allows |
+| --- | --- |
+| `store:read` | Read the store name, currency, plan, and storefront address. |
+| `orders:read` | List and read orders, their notes, and their commands. |
+| `orders:buyer:read` | Include the buyer's name, e-mail, identifier, and billing details in orders, and the buyer's e-mail and name in queued commands. Also required to filter by buyer. |
+| `orders:write` | Add and delete notes, correct the delivery identifier, and resend delivery commands. |
+| `orders:approve` | Approve pending orders. |
+| `orders:cancel` | Cancel pending orders and mark approved orders as refunded. |
+| `commands:read` | List and read the delivery command queue. |
+| `commands:write` | Retry, edit, and delete queued commands. |
+| `commands:execute` | Pull commands for a server and report them as done or failed. |
+| `servers:read` | List and read servers, without connector tokens or RCON passwords. |
+| `servers:write` | Create and delete servers and regenerate connector tokens. |
+| `webhooks:read` | List webhook endpoints and deliveries, including the payload of a delivery. |
+| `webhooks:write` | Create, edit, and delete endpoints, rotate secrets, send tests, and retry deliveries. |
+
+### Buyer data
+
+Without `orders:buyer:read`, responses leave out who bought: no `buyer` object on orders, and no `email` or `name` on the order of a queued command. Filters that search by the buyer need the scope too, because a search can confirm who bought even when the results hide it. On `GET /v1/seller/orders` that means `email`, `accountIdentifier`, and `q`; on `GET /v1/seller/commands` it means `accountIdentifier`.
+
+A queued command is already rendered, so `command` can contain the buyer's in-game name or another identifier. `commands:read` shows it regardless of `orders:buyer:read`.
+
+### Scopes that act
+
+<Warning>
+  `orders:approve` approves an order as if the payment had been confirmed. The delivery commands run and the `order.payment_approved` webhook goes out. Grant it only to systems that confirm payments on their own.
+</Warning>
+
+Every approval, cancellation, refund mark, identifier correction, and command resend made with a token leaves a note on the order that names the token. Name each token after the system that uses it so those notes stay readable.

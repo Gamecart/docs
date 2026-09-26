@@ -1,0 +1,32 @@
+---
+title: "Changelog"
+icon: "history"
+description: "Changes to the Gamecart Seller API and webhooks"
+---
+
+<Update label="September 2026" description="Seller API v1" tags={["API", "Webhooks"]}>
+  ## Scopes and limits
+
+  - Tokens now have one scope per resource and action: `store:read`, `orders:read`, `orders:buyer:read`, `orders:write`, `orders:approve`, `orders:cancel`, `commands:read`, `commands:write`, `commands:execute`, `servers:read`, `servers:write`, `webhooks:read`, and `webhooks:write`. Existing tokens keep `orders:read` and `orders:buyer:read`.
+  - Rate limits count per token and route template, with `X-RateLimit-Limit` and `X-RateLimit-Remaining` on every authenticated response and `Retry-After` on `429`.
+  - Missing resources answer `404` with a typed code, and state conflicts answer `409`.
+
+  ## Orders
+
+  - `GET /v1/seller/orders` lists every order, without the 30-day window, and filters by status, gateway, time range, e-mail, identifier, product, coupon, and free text.
+  - The order object carries `number`, items with variables, coupons, discounts, checkout fields, delivery status, the custom gateway, and buyer billing details.
+  - New actions: approve, cancel, mark as refunded, correct the delivery identifier, resend commands, and manage notes.
+
+  ## Commands and servers
+
+  - List, read, retry, edit, and delete queued commands.
+  - Pull, done, and fail on a server with the store's API token.
+  - Create, read, and delete servers, and regenerate connector tokens.
+
+  ## Webhooks
+
+  - The payload moved the order under `data.order`, which now holds the full order with the buyer. `createdAt` is in UTC with `Z`.
+  - Send a `webhook.test` event from the dashboard or the API, and read the payload of any delivery.
+  - Manage endpoints and deliveries through the API.
+  - Finished deliveries are deleted after 30 days.
+</Update>

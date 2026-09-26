@@ -1,0 +1,47 @@
+---
+title: "Rate limits"
+icon: "gauge"
+description: "Per-token request limits, rate headers, and the executor cadence"
+---
+
+Gamecart limits how often each API token can call each route. The limit counts per token, per HTTP method, and per route, so reading one order counts against `GET /v1/seller/orders/{orderId}` no matter which order you read.
+
+| Method | Limit |
+| --- | --- |
+| `GET` | 120 requests per minute |
+| `POST`, `PUT`, `PATCH`, `DELETE` | 30 requests per minute |
+
+The window starts at the first request and lasts 60 seconds.
+
+## Headers
+
+Responses to authenticated requests carry the budget for that route:
+
+```http
+X-RateLimit-Limit: 120
+X-RateLimit-Remaining: 117
+```
+
+When the budget runs out, the API answers `429` with the code `RATE_LIMIT_ERROR`, a `Retry-After` header in seconds, and `retryAfterSeconds` in the body:
+
+```http
+HTTP/1.1 429 Too Many Requests
+Content-Type: application/problem+json
+Retry-After: 17
+X-RateLimit-Limit: 120
+X-RateLimit-Remaining: 0
+```
+
+Wait at least `Retry-After` seconds before calling that route again. Other routes keep their own budget.
+
+## Command execution
+
+The three command execution routes, pull, done, and fail, do not count against the token limits above. They follow the cadence of the command executor protocol instead: 120 calls per minute for each server and each of the three routes.
+
+That budget belongs to the server, not to the token. An official connector and your own executor working on the same server share it.
+
+## Staying under the limits
+
+- Use [webhooks](/webhooks/overview) to learn about new and changed orders instead of polling the order list.
+- Filter lists on the server with `from`, `status`, and the other query parameters instead of paging through everything.
+- Keep one token per system, so a busy integration does not spend the budget of another.
