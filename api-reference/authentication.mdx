@@ -31,7 +31,7 @@ Each operation declares the scopes it needs, and a token must have all of them. 
 | --- | --- |
 | `store:read` | Read the store name, currency, plan, and storefront address. |
 | `orders:read` | List and read orders, their notes, and their commands. |
-| `orders:buyer:read` | Include the buyer's name, e-mail, identifier, and billing details in orders, and the buyer's e-mail and name in queued commands. Also required to filter by buyer. |
+| `orders:buyer:read` | Include the buyer's name, e-mail, identifier, billing details, and checkout field answers in orders, and the buyer's e-mail and name in queued commands. Also required to filter by buyer. |
 | `orders:write` | Add and delete notes, correct the delivery identifier, and resend delivery commands. |
 | `orders:approve` | Approve pending orders. |
 | `orders:cancel` | Cancel pending orders and mark approved orders as refunded. |
@@ -45,7 +45,7 @@ Each operation declares the scopes it needs, and a token must have all of them. 
 
 ### Buyer data
 
-Without `orders:buyer:read`, responses leave out who bought: no `buyer` object on orders, and no `email` or `name` on the order of a queued command. Filters that search by the buyer need the scope too, because a search can confirm who bought even when the results hide it. On `GET /v1/seller/orders` that means `email`, `accountIdentifier`, and `q`; on `GET /v1/seller/commands` it means `accountIdentifier`.
+Without `orders:buyer:read`, responses leave out who bought: no `buyer` object or `checkoutFields` on orders, and no `email` or `name` on the order of a queued command. Filters that search by the buyer need the scope too, because a search can confirm who bought even when the results hide it. On `GET /v1/seller/orders` that means `email`, `accountIdentifier`, and `q`; on `GET /v1/seller/commands` it means `accountIdentifier`.
 
 A queued command is already rendered, so `command` can contain the buyer's in-game name or another identifier. `commands:read` shows it regardless of `orders:buyer:read`.
 

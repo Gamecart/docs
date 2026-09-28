@@ -206,6 +206,8 @@ components:
           description: When the order was cancelled.
           type: string
         checkoutFields:
+          description: Answers the buyer gave to the checkout fields. Requires the
+            `orders:buyer:read` scope; always present in webhooks.
           items:
             $ref: "#/components/schemas/OrderCheckoutField"
           type: array
@@ -1412,7 +1414,8 @@ paths:
       - Orders
   /v1/seller/orders/{orderId}:
     get:
-      description: '`buyer` is present only when the token also has `orders:buyer:read`.'
+      description: '`buyer` and `checkoutFields` are present only when the token also
+        has `orders:buyer:read`.'
       parameters:
       - in: path
         name: orderId
