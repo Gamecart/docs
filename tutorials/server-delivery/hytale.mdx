@@ -44,12 +44,14 @@ Set `pollIntervalSeconds` to a value from `5` through `600`. Unless you are test
 
 ## Operate the executor
 
-The console and users with the `gamecart.admin` permission can run `gamecart status`. The command shows the plugin version, pinned Hytale release, connector state, last poll, and current backoff. Run `gamecart reload` to validate and apply configuration changes. Reloading also retries a pending callback without dispatching its command again.
+The console and users with the `gamecart.admin` permission can run `gamecart status`. It shows the plugin version, the Hytale release it supports, and whether it is connected. After you edit `config.properties`, run `gamecart reload` to apply it. Reloading never runs a command a second time.
 
-Use exactly one Hytale executor installation for each Gamecart server token. The executor processes one command and its `done` or `fail` callback before pulling another.
+Use one Hytale executor installation for each Gamecart server token.
 
-The executor never stops polling on its own. Network errors, unexpected HTTP responses, and malformed, invalid, or oversized API responses use a capped `5`/`10`/`30`/`60` second backoff and keep retrying until the API answers again, so it reconnects after an outage without a reload. The console shows one line when the API becomes unavailable and one when the connection is restored. If it keeps failing with `401` or `403`, check the server token and API URL, then run `gamecart reload`.
+If the executor can't reach Gamecart, it keeps retrying on its own and waits up to a minute between attempts. When Gamecart is reachable again, it reconnects without a reload. The console logs one line when the connection drops and another when it comes back.
+
+If it keeps retrying with a `401` or `403` error, Gamecart is rejecting the server token. Check `serverToken` and `apiUrl` in `config.properties`, then run `gamecart reload`.
 
 <Warning>
-  If the executor runs a command but loses its callback, manually resending the command can duplicate fulfillment. Stop the original executor and confirm that risk in the Gamecart dashboard before resending.
+  If a command ran on your server but Gamecart never received the confirmation, resending it can deliver the purchase twice. Stop the original executor and check the outcome in the Gamecart dashboard before you resend.
 </Warning>

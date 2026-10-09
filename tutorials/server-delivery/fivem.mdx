@@ -64,12 +64,14 @@ Prefer explicit command grants whenever the target resource exposes command-spec
 
 ## Operate the executor
 
-Run `gamecart status` to see the connector version, state, time since the last pull, current backoff, and pending callback queue ID. Run `gamecart reload` to validate and apply `config.js`. Reloading resumes a pending callback without dispatching its command again.
+Run `gamecart status` to check the executor version and whether it is connected. After you edit `config.js`, run `gamecart reload` to apply it. Reloading never runs a command a second time.
 
-Use exactly one installation for each Gamecart server token. The executor never stops polling on its own. Network errors, unexpected HTTP responses, and invalid API responses use a capped `5`/`10`/`30`/`60` second backoff and keep retrying until the API answers again, so it reconnects after an outage without a reload. The console shows one line when the API becomes unavailable and one when the connection is restored. If it keeps failing with `401` or `403`, check the server token and API URL, then run `gamecart reload`.
+Use one installation for each Gamecart server token.
 
-When you stop the resource, it invalidates unfinished presence, pull, dispatch, and callback work. Stale asynchronous tasks cannot restart polling or change the connector state.
+If the executor can't reach Gamecart, it keeps retrying on its own and waits up to a minute between attempts. When Gamecart is reachable again, it reconnects without a reload. The console logs one line when the connection drops and another when it comes back.
+
+If it keeps retrying with a `401` or `403` error, Gamecart is rejecting the server token. Check `serverToken` and `apiUrl` in `config.js`, then run `gamecart reload`.
 
 <Warning>
-  If a command is dispatched but its callback is not confirmed, manually resending it can duplicate fulfillment. Stop the original executor and confirm the outcome in the Gamecart dashboard before resending.
+  If a command ran on your server but Gamecart never received the confirmation, resending it can deliver the purchase twice. Stop the original executor and check the outcome in the Gamecart dashboard before you resend.
 </Warning>
