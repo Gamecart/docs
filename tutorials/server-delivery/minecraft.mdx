@@ -65,10 +65,12 @@ Folia support covers the Gamecart adapter. It does not guarantee that arbitrary 
 
 ## Operate the executor
 
-Use `gamecart status` to check the executor state. After changing its configuration, use `gamecart reload` to validate and apply the new values.
+Run `gamecart status` to check whether the executor is connected. After you edit its configuration, run `gamecart reload` to apply it.
 
-Network errors and `408`, `429`, and `5xx` responses back off before polling again. Invalid credentials and other non-retryable protocol failures stop polling until you reload the configuration or restart the runtime.
+If the executor can't reach Gamecart, it keeps retrying on its own and waits up to a minute between attempts. When Gamecart is reachable again, it reconnects without a reload. The console logs one line when the connection drops and another when it comes back.
+
+If it keeps retrying with a `401` or `403` error, Gamecart is rejecting the server token. Check `serverToken` and `apiUrl` in the configuration, then run `gamecart reload`.
 
 <Warning>
-  If the executor runs a command locally but cannot confirm the callback, a resend can duplicate fulfillment. Confirm the outcome in the Gamecart dashboard before resending.
+  If a command ran on your server but Gamecart never received the confirmation, resending it can deliver the purchase twice. Check the outcome in the Gamecart dashboard before you resend.
 </Warning>
