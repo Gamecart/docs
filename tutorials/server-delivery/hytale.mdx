@@ -11,7 +11,7 @@ Use this tutorial after you [connect a server](/tutorials/server-delivery/connec
 Make sure you have:
 
 - Java 25.
-- Hytale Server release API `0.5.6`.
+- Hytale Server release API `0.6.8`.
 - A Gamecart server configured as `PLUGIN`.
 - The Gamecart Hytale executor JAR.
 
@@ -48,7 +48,7 @@ The console and users with the `gamecart.admin` permission can run `gamecart sta
 
 Use exactly one Hytale executor installation for each Gamecart server token. The executor processes one command and its `done` or `fail` callback before pulling another.
 
-Network errors and `408`, `429`, and `5xx` responses use capped backoff before polling again. Invalid credentials, unexpected redirects or client errors, and malformed, invalid, or oversized API responses stop polling until you reload the configuration or restart the server.
+The executor never stops polling on its own. Network errors, unexpected HTTP responses, and malformed, invalid, or oversized API responses use a capped `5`/`10`/`30`/`60` second backoff and keep retrying until the API answers again, so it reconnects after an outage without a reload. The console shows one line when the API becomes unavailable and one when the connection is restored. If it keeps failing with `401` or `403`, check the server token and API URL, then run `gamecart reload`.
 
 <Warning>
   If the executor runs a command but loses its callback, manually resending the command can duplicate fulfillment. Stop the original executor and confirm that risk in the Gamecart dashboard before resending.

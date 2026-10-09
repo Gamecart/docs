@@ -52,8 +52,8 @@ Run a controlled test before you use server delivery for live purchases. Use a d
 | Symptom | First check |
 | --- | --- |
 | Executor does not poll | Check the token, HTTPS API URL, and runtime logs. Then run `gamecart reload`. |
-| Executor enters backoff | Check network reachability and any `408`, `429`, or `5xx` provider or backend responses. |
-| Polling stops after a client error | Check credentials and configuration. Reload or restart after you correct them. |
+| Executor enters backoff | It retries on its own and reconnects when the API answers again. Check network reachability and the HTTP status in `gamecart status`. |
+| Backoff persists with `401` or `403` | Check the server token and API URL, then run `gamecart reload`. |
 | Command remains processing | Confirm the executor and callback path before you take manual action. |
 | Command failed | Read the safe status or error shown by Gamecart and verify the target command manually. |
 | RCON is uncertain | Check the server for the command's effect before you resend it. |

@@ -66,7 +66,7 @@ Prefer explicit command grants whenever the target resource exposes command-spec
 
 Run `gamecart status` to see the connector version, state, time since the last pull, current backoff, and pending callback queue ID. Run `gamecart reload` to validate and apply `config.js`. Reloading resumes a pending callback without dispatching its command again.
 
-Use exactly one installation for each Gamecart server token. Network errors and `408`, `429`, and `5xx` responses use capped `5`/`10`/`30`/`60` second backoff before polling again. Invalid credentials, redirects, and other non-retryable HTTP errors stop polling until you reload the configuration or restart the resource.
+Use exactly one installation for each Gamecart server token. The executor never stops polling on its own. Network errors, unexpected HTTP responses, and invalid API responses use a capped `5`/`10`/`30`/`60` second backoff and keep retrying until the API answers again, so it reconnects after an outage without a reload. The console shows one line when the API becomes unavailable and one when the connection is restored. If it keeps failing with `401` or `403`, check the server token and API URL, then run `gamecart reload`.
 
 When you stop the resource, it invalidates unfinished presence, pull, dispatch, and callback work. Stale asynchronous tasks cannot restart polling or change the connector state.
 
