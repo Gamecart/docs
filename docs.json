@@ -68,8 +68,10 @@
               "tutorials/store-setup/payment-gateways/stripe",
               "tutorials/store-setup/payment-gateways/paypal",
               "tutorials/store-setup/payment-gateways/mercado-pago",
+              "tutorials/store-setup/payment-gateways/picpay",
               "tutorials/store-setup/payment-gateways/pix",
               "tutorials/store-setup/payment-gateways/efi",
+              "tutorials/store-setup/payment-gateways/nowpayments",
               "guides/custom-gateways"
             ]
           },

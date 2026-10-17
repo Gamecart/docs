@@ -1,0 +1,33 @@
+---
+title: "Crypto (NOWPayments)"
+icon: "/images/icons/gateways/nowpayments.svg"
+description: "Accept crypto payments in a Gamecart store with NOWPayments"
+---
+
+Buyers pay in crypto on a NOWPayments hosted invoice page. Gamecart needs two values from your NOWPayments account: an API key and an IPN secret key. Gamecart sends the notification URL with every invoice, so you don't configure one in NOWPayments.
+
+## Get the API key in NOWPayments
+
+1. Open the [NOWPayments dashboard](https://account.nowpayments.io) and sign in.
+2. Go to **Store Settings > API keys**.
+3. Create a key and copy it.
+
+## Get the IPN secret key
+
+1. In the same **Store Settings** area, open **Instant payment notifications**.
+2. Generate an **IPN secret key** and copy it.
+
+Gamecart uses this secret to verify that each payment notification really comes from NOWPayments.
+
+To test first, create the keys in the [NOWPayments sandbox](https://account-sandbox.nowpayments.io) instead.
+
+## Add it in Gamecart
+
+1. Open **Settings > Gateways** and click **Add gateway**.
+2. Click **Add** on **Crypto (NOWPayments)**.
+3. Paste the values in **API key** and **IPN secret**.
+4. Turn on **Sandbox mode** only if the keys come from the NOWPayments sandbox.
+5. Click **Save Configuration**.
+6. Turn on the switch in the gateway list when you are ready to take payments.
+
+If you later replace a key, paste the new value and save again. See [Payment gateways](/tutorials/store-setup/payment-gateways) to reorder or remove the gateway.

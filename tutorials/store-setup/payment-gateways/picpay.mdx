@@ -1,0 +1,38 @@
+---
+title: "PicPay"
+icon: "/images/icons/gateways/picpay.svg"
+description: "Connect the PicPay wallet to a Gamecart store"
+---
+
+This gateway sends buyers to PicPay, where they pay in the PicPay app with their wallet balance or a card saved there.
+
+PicPay only works on stores whose currency is BRL. Gamecart sets the payment notification URL on each order, so there is nothing to configure for notifications in PicPay.
+
+## Get your credentials
+
+1. Sign in to the PicPay business panel (PicPay Empresas).
+2. Open **Integrações** and select **Carteira Picpay - Ecommerce**.
+3. Click **Gerar credenciais**.
+4. Copy the `client_id`, the `client_secret`, and the `x-seller-token`. PicPay shows the client secret only once, so keep it until you paste it in Gamecart.
+
+## Add it in Gamecart
+
+1. Open **Settings > Gateways** and click **Add gateway**.
+2. Click **Add** on **PicPay**.
+3. Paste the `client_id` in **Client ID**, the `client_secret` in **Client secret**, and the `x-seller-token` in **Seller token**.
+4. Click **Save Configuration**.
+5. Turn on the PicPay switch in the gateway list when you are ready to take payments.
+
+## What buyers see
+
+When a buyer picks PicPay, the checkout asks for their CPF, because PicPay requires it for the payment. Gamecart doesn't store the CPF.
+
+After the buyer pays in the PicPay app, PicPay notifies Gamecart and the order status updates on its own.
+
+## Test the integration
+
+PicPay has no test environment, so this gateway has no **Sandbox mode**. To check the setup, make a small real purchase in your store and refund it in the PicPay panel.
+
+## Refunds
+
+Refund payments in the PicPay panel. Gamecart receives the refund from PicPay and updates the order.

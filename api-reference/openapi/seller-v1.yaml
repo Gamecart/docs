@@ -180,6 +180,7 @@ components:
       - PAYPAL
       - STRIPE
       - MERCADO_PAGO
+      - PICPAY
       - PIX
       - MANUAL
       - CUSTOM
