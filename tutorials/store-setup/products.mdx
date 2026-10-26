@@ -40,8 +40,9 @@ Categories go two levels deep: a top-level category can have subcategories, but 
 2. Enter a **Name** and choose the **Category**.
 3. Write the **Description** buyers see on the storefront.
 4. Set the **Price**. Leave **Duration** empty for a permanent product, or enter a number of days for one that expires, such as a 30-day rank.
-5. Optional: add an image. Use PNG, JPEG, or WebP up to 5 MB. 512×512 px works best.
-6. Click **Create product**.
+5. Optional: set a **Compare-at price** to show a sale. See [Show a sale price](#show-a-sale-price).
+6. Optional: add an image. Use PNG, JPEG, or WebP up to 5 MB. 512×512 px works best.
+7. Click **Create product**.
 
 <Frame caption="Fill in the details and the price. Duration is optional.">
   <img
@@ -52,10 +53,18 @@ Categories go two levels deep: a top-level category can have subcategories, but 
 
 Two switches under the price change how buyers pay:
 
-- **Buyer chooses the price** turns the price into the minimum and suggested amount. Buyers can pay that amount or more, and coupons never apply to this product.
+- **Buyer chooses the price** turns the price into the minimum and suggested amount. Buyers can pay that amount or more, and coupons never apply to this product. A product with this switch on can't have a compare-at price.
 - **Accept coupons on this product** is on by default. Turn it off to keep a product out of every coupon.
 
 The **Commands** section sets what runs on your game server after a purchase. See [Configure product delivery commands](/tutorials/server-delivery/configure-commands).
+
+## Show a sale price
+
+The **Compare-at price** is the original price of a sale. Your store shows it struck through next to the product price, with a badge for the discount percentage, such as **27% OFF**. Buyers still pay the product price: the cart, checkout, and order use only the price.
+
+- The compare-at price must be higher than the price.
+- To end the sale, clear the field and save.
+- **Bulk actions** can set the same compare-at price on several products or remove it from them. If the value isn't higher than the price of every selected product, nothing changes.
 
 ## Organize the catalog
 
@@ -69,7 +78,7 @@ The products page lists every category with its products underneath.
 </Frame>
 
 - Drag a category or product by its handle to change the order buyers see.
-- Use **Bulk actions** to change the price, visibility, or category of several products at once.
+- Use **Bulk actions** to change the price, compare-at price, visibility, or category of several products at once.
 - Use **Import** to bring an existing catalog into Gamecart.
 
 <Tip>
