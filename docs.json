@@ -61,6 +61,13 @@
             ]
           },
           {
+            "group": "Customization",
+            "pages": [
+              "tutorials/customization/themes",
+              "tutorials/customization/widgets"
+            ]
+          },
+          {
             "group": "Payment gateway guides",
             "hidden": true,
             "searchable": true,
