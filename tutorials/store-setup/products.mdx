@@ -55,6 +55,8 @@ Two switches under the price change how buyers pay:
 - **Buyer chooses the price** turns the price into the minimum and suggested amount. Buyers can pay that amount or more, and coupons never apply to this product.
 - **Accept coupons on this product** is on by default. Turn it off to keep a product out of every coupon.
 
+**Compare-at price** is optional. Enter it next to **Price**. On the storefront, buyers see that amount struck through beside the price, with a "% OFF" badge. The percent is rounded down, and the badge is omitted when the discount is under 1%. The cart, checkout, and order amounts stay at **Price**. The compare-at price must be higher than **Price** and can have at most two decimal places. You can't use it with **Buyer chooses the price**. The field is hidden while that switch is on, and Gamecart refuses the combination.
+
 The **Commands** section sets what runs on your game server after a purchase. See [Configure product delivery commands](/tutorials/server-delivery/configure-commands).
 
 ## Organize the catalog
@@ -69,7 +71,7 @@ The products page lists every category with its products underneath.
 </Frame>
 
 - Drag a category or product by its handle to change the order buyers see.
-- Use **Bulk actions** to change the price, visibility, or category of several products at once.
+- Use **Bulk actions** to change the price, visibility, or category of several products at once, and to **Set compare-at price** or **Remove compare-at price**.
 - Use **Import** to bring an existing catalog into Gamecart.
 
 <Tip>

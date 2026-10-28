@@ -185,6 +185,7 @@ components:
       - MANUAL
       - CUSTOM
       - FREE
+      - NOWPAYMENTS
       type: string
     Instant:
       examples:
