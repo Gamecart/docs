@@ -1,7 +1,7 @@
 ---
 title: "Create your store"
 icon: "store"
-description: "Sign up, pick your game, and set up the store address"
+description: "Sign up, pick your game, and set the store address, color, and region"
 ---
 
 A Gamecart account can own up to 10 stores. Each store has its own products, payments, and server connections.
@@ -16,45 +16,66 @@ A Gamecart account can own up to 10 stores. Each store has its own products, pay
 
 Every sign-in asks for a code sent to your email. Check **Trust this browser for 30 days** to skip the code on that browser.
 
-## Pick your game
+## Store setup
 
-After you sign in for the first time, the dashboard opens the store setup.
+After you sign in for the first time, the dashboard opens store setup. The form is a 3-step accordion. The header shows **Step 1 of 3**, **Step 2 of 3**, or **Step 3 of 3**.
 
-1. Under **Game**, select the game your server runs: **Minecraft**, **Hytale**, **FiveM**, or **Other / Generic**.
+**Back** returns to the previous step. **Continue** opens the next one. The last step uses **Create Store**.
+
+## Store type
+
+The first step is **Store type**: "Choose the game your server runs."
+
+1. Under **Game**, select **Minecraft**, **Hytale**, **FiveM**, or **Other / Generic**. No card is selected when the step opens.
 2. Click **Continue**.
 
-<Frame caption="Pick the game your server runs.">
-  <img
-    src="/images/tutorials/store-setup/create-store-type.png"
-    alt="Store type step with the game options and the Continue button highlighted"
-  />
-</Frame>
+The game decides which delivery methods and command defaults the store offers. You can't change the game after the store is created. **Settings > General** shows it, and you can't edit it there.
 
-The game decides which delivery methods and command defaults the store offers. You can't change it later.
+## Store details
 
-## Fill in the store details
+The second step is **Store details**: "Choose a name and configure your store address."
 
-1. **Store name**: the name buyers see. Use 3 to 32 characters.
-2. **Default currency**: the currency for every price and payment. Choose USD, BRL, EUR, or GBP.
-3. **Subdomain**: the address of your storefront, such as `blockhaven.gamecart.shop`. The dashboard fills it from the store name and tells you whether it is available.
-4. Click **Create Store**.
+1. **Store name**: the name buyers see. Use 3 to 32 characters. Typing the name fills in the subdomain.
+2. **Subdomain**: the storefront address, such as `blockhaven.gamecart.shop`.
+3. **Store color**: **Violet**, **Blue**, **Orange**, **Emerald**, **Red**, or **Gold**. **Violet** is selected by default. **Custom** opens a color picker, and a secondary shade is derived automatically. The hint says "You can change it later."
+4. Click **Continue**.
 
-<Frame caption="Name the store, choose its currency, and confirm the subdomain.">
-  <img
-    src="/images/tutorials/store-setup/create-store-details.png"
-    alt="Store details step with the store name, currency, subdomain, and Create Store button highlighted"
-  />
-</Frame>
+A subdomain uses 3 to 32 lowercase letters, numbers, and hyphens, and it must start with a letter or a number. The availability check shows **Subdomain is available!** or **This subdomain is already taken.** You can [use your own domain](/tutorials/store-setup/custom-domain).
+
+The preset main colors are:
+
+| Preset | Main color |
+| --- | --- |
+| Violet (default) | `#a855f7` |
+| Blue | `#3c7cfb` |
+| Orange | `#f97316` |
+| Emerald | `#10b981` |
+| Red | `#ef4444` |
+| Gold | `#f5a524` |
+
+To change the colors later, open **Your store > Customization > Visual identity**. On the **Colors** card, edit **Main Color** and **Secondary Color**, then click **Save changes**.
+
+## Region
+
+The third step is **Region**: "Set the currency and time zone for your store."
+
+The step shows this notice: "The currency can't be changed after the store is created."
+
+1. **Default currency**: **USD**, **BRL**, **EUR**, or **GBP**. The selected currency is the one suggested from your language, or **USD** when there is no suggestion.
+2. **Timezone**: a searchable list. Each entry looks like `(UTC±HH:MM) Area/City`. Your browser's timezone is selected. The hint says "You can change it later in Settings."
+3. Click **Create Store**.
 
 <Warning>
-  You can't change the currency after the store is created. Some regional gateways only work in stores that sell in a specific currency, so check [Payment gateways](/tutorials/store-setup/payment-gateways) before you pick one.
+  Some regional gateways only work in stores that sell in a specific currency, so check [Payment gateways](/tutorials/store-setup/payment-gateways) before you pick one.
 </Warning>
 
-A subdomain uses 3 to 32 lowercase letters, numbers, and hyphens. It can't start or end with a hyphen. You can change it later in **Settings > Domain**, or [use your own domain](/tutorials/store-setup/custom-domain).
+**Settings > General** shows the currency, and you can't edit it there. Dates in your store use the **Timezone** you set on that page. The dashboard keeps using your browser's timezone.
 
 ## Next steps
 
-When the store is ready, the dashboard opens on its home page. The store picker in the top left switches between your stores.
+After the store is created, a toast says **Store created.** The dashboard opens with a guided tour.
+
+The store picker in the top left switches between your stores.
 
 <Frame caption="The dashboard home for a new store.">
   <img
