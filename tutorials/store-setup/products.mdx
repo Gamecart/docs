@@ -32,7 +32,12 @@ Your plan sets how many categories and products a store can have.
   />
 </Frame>
 
-Categories go two levels deep: a top-level category can have subcategories, but a subcategory can't have its own. **Hide category** removes a category from the store lists while keeping it reachable by direct link.
+Categories go two levels deep: a top-level category can have subcategories, but a subcategory can't have its own.
+
+Two switches change who can find and buy those products:
+
+- **Hide category** removes the category from store lists, including appearances in other categories. The direct link still works, and buyers can still purchase.
+- **Enabled**, on the category form and in the products list, takes the category off sale when you turn it off. The category page returns 404, including for a subcategory whose parent is off. Products in the category and in its subcategories leave search, listings, cart, and checkout. Their own **Enabled** switches stay as they were, so turning the category back on restores them.
 
 ## Create a product
 
