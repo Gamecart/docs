@@ -57,7 +57,8 @@
           {
             "group": "Dashboard",
             "pages": [
-              "tutorials/dashboard/push-notifications"
+              "tutorials/dashboard/push-notifications",
+              "tutorials/dashboard/plan-and-billing"
             ]
           },
           {
